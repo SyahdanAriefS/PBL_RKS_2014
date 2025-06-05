@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PDF to Word Converter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo" />
+    <span class="brand">DocSnap</span>
+  </div>
+
+  <div class="container">
+    <h1 class="main-title">Konversi PDF ke Word</h1>
+    <p class="subtitle">Smooth conversions, stunning results. Just upload and relax :D</p>
+
+    {% if message %}
+      <p style="color: green; font-weight: bold;">{{ message }}</p>
+    {% endif %}
+
+    <form id="uploadForm" action="{{ url_for('convert_pdf_to_word') }}" method="post" enctype="multipart/form-data">
+      <input type="file" name="pdf_file" id="fileInput" style="display: none;" accept="application/pdf" required />
+      
+      <div class="button-group">
+        {% if not docx_file %}
+          <button type="button" id="chooseFileButton" class="action-btn">
+            Choose Your File <span class="emoji">📄</span>
+          </button>
+
+          <button type="submit" id="submitButton" class="action-btn" style="display: none;">
+            Start Converting Now <span class="emoji">🚀</span>
+          </button>
+        {% endif %}
+
+        <button id="backButton" class="back-btn" style="{% if not docx_file %} display: none; {% endif %}">
+          &#8592; Back
+        </button>
+      </div>
+    </form>
+
+    {% if docx_file %}
+      <a href="{{ url_for('download_file', filename=docx_file) }}" class="action-btn" style="margin-top: 20px; display: inline-block;">
+        Download Hasil Konversi <span class="emoji">⬇️</span>
+      </a>
+    {% endif %}
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const chooseFileButton = document.getElementById('chooseFileButton');
+    const submitButton = document.getElementById('submitButton');
+    const backButton = document.getElementById('backButton');
+
+    if (chooseFileButton) {
+      chooseFileButton.addEventListener('click', () => {
+        fileInput.click();
+      });
+    }
+
+    if (fileInput) {
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+          submitButton.style.display = 'inline-block';
+          backButton.style.display = 'inline-block';
+          chooseFileButton.style.display = 'none';
+        }
+      });
+    }
+
+    backButton.addEventListener('click', () => {
+      window.location.href = '{{ url_for("index") }}';
+    });
+  </script>
+</body>
+</html>
