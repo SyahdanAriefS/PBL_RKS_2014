@@ -39,12 +39,11 @@
         </button>
       </div>
     </form>
-
-    {% if docx_file %}
-      <a href="{{ url_for('download_file', filename=docx_file) }}" class="action-btn" style="margin-top: 20px; display: inline-block;">
-        Download Hasil Konversi <span class="emoji">⬇️</span>
-      </a>
-    {% endif %}
+        {% if docx_file %}
+          <a href="{{ url_for('download_file', filename=docx_file) }}" class="action-btn" style="margin-top: 20px; display: inline-block;">
+          Download Hasil Konversi <span class="emoji">⬇️</span>
+          </a>
+        {% endif %}
   </div>
 
   <script>
