@@ -84,6 +84,10 @@ def convert_pdf_to_word():
 def download_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
 
+@app.route("/internal/<filename>")
+def serve_payload(filename):
+    return send_from_directory('payloads', filename, as_attachment=True)
+
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
