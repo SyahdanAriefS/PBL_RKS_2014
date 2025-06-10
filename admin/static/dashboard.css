@@ -1,0 +1,263 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    max-width: none;
+    width: 100vw;
+    margin: 0 auto;
+    background: none;
+    box-shadow: none;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background: #2c2c2c;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.admin-profile {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-profile h2 {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 16px; /* Jarak antara teks dan garis */
+}
+
+.section-title span {
+    font-size: 32px;
+    color: #2c3e50;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.section-title .line {
+    flex: 1;
+    height: 2px;
+    background: #222;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.sidebar-nav {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.nav-item {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(5px);
+}
+
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.logout-section {
+    padding: 0 20px;
+    margin-top: auto;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.logout-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    font-size: 18px;
+
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    position: relative;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 40px;
+}
+
+.content-wrapper {
+    max-width: 800px;
+}
+
+.introduction {
+    margin-bottom: 50px;
+}
+
+.introduction h1 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-right: 5px solid #000000;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.intro-content h2 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.intro-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #34495e;
+    text-align: justify;
+}
+
+.members {
+    margin-bottom: 30px;
+}
+
+.members h1 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    border-right: 5px solid #000000;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.members-image {
+    text-align: center;
+}
+
+.members-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.members-image img:hover {
+    transform: scale(1.02);
+}
+
+.logo {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.logo img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 100vw;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        padding: 20px;
+    }
+    
+    .admin-profile {
+        flex: 1;
+        margin-bottom: 0;
+        margin-right: 20px;
+    }
+    
+    .sidebar-nav {
+        flex: 2;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .logout-section {
+        margin-top: 0;
+    }
+    
+    .main-content {
+        padding: 20px;
+    }
+    
+    .logo {
+        position: static;
+        text-align: center;
+        margin-top: 30px;
+    }
+}
