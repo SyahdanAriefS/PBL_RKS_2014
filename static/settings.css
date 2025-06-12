@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: #fff;
+    background: #f4f4f4;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -33,19 +33,19 @@ body {
     box-shadow: 2px 0 10px rgba(0,0,0,0.07);
 }
 
-/* Profil admin */
 .admin-profile {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    padding: 20px;
 }
 
 .profile-image {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2px solid white;
-    margin: 0 auto 15px;
+    margin-bottom: 15px;
     overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .profile-image img {
@@ -58,7 +58,6 @@ body {
     color: white;
     font-size: 24px;
     font-weight: 600;
-    margin-top: 10px;
 }
 
 .sidebar-nav {
@@ -77,10 +76,6 @@ body {
     font-size: 16px;
     text-align: center;
     font-weight: 500;
-    margin-right: 100px;
-    padding-left: 30px;
-    padding-right: 50px;
-    margin-right: 0;
     width: 100%;
     box-sizing: border-box;
 }
@@ -88,7 +83,6 @@ body {
 .nav-item:hover {
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    transform: translateX(5px);
 }
 
 .nav-item.active {
@@ -123,8 +117,6 @@ body {
     margin-right: 10px;
     width: 30px;
     height: 30px;
-    vertical-align:middle;
-    font-size: 14px;
 }
 
 /* Main Content Styles */
@@ -149,64 +141,46 @@ body {
     margin-bottom: 20px;
     border-bottom: 3px solid #3498db;
     padding-bottom: 10px;
-    display: inline-block;
 }
 
-.intro-content h2 {
-    font-size: 28px;
-    color: #2c3e50;
+.user-settings {
+    margin-top: 40px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-settings label {
+    font-weight: bold;
+    margin: 10px 0 5px;
+    display: block;
+}
+
+.user-settings input {
+    width: calc(100% - 20px);
+    padding: 10px;
     margin-bottom: 20px;
-    font-weight: 600;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.intro-content p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #34495e;
-    text-align: justify;
+.user-settings button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.members {
-    margin-bottom: 30px;
+.user-settings button:hover {
+    background: #2980b9;
 }
-
-.members h1 {
-    font-size: 32px;
-    color: #2c3e50;
-    margin-bottom: 30px;
-    border-bottom: 3px solid #3498db;
-    padding-bottom: 10px;
-    display: inline-block;
-}
-
-.members-image {
-    text-align: center;
-}
-
-.members-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
-}
-
-.members-image img:hover {
-    transform: scale(1.02);
-}
-
-.logo {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-}
-
-.logo img {
-    width: 60px;
-    height: 80px;
-    transition: transform 0.3s ease;
-}
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -216,34 +190,14 @@ body {
     
     .sidebar {
         width: 100%;
-        height: auto;
-        flex-direction: row;
         padding: 20px;
     }
     
     .admin-profile {
-        flex: 1;
         margin-bottom: 0;
-        margin-right: 20px;
     }
-    
-    .sidebar-nav {
-        flex: 2;
-        display: flex;
-        gap: 10px;
-    }
-    
-    .logout-section {
-        margin-top: 0;
-    }
-    
+
     .main-content {
         padding: 20px;
-    }
-    
-    .logo {
-        position: static;
-        text-align: center;
-        margin-top: 30px;
     }
 }
