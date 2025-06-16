@@ -7,44 +7,48 @@
     <link rel="stylesheet" href="/static/overview.css">
 </head>
 <body>
-    <div class="sidebar">
-        <div class="victim-profile">
-            <div class="profile-image">
-                <img src="/static/image/victim-profile.png" alt="victim Profile">
-            <h3>victim 1</h3>
-        </div>
-        
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link active">Overview</a>
-            </li>
-            <li class="nav-item">
-                <a href="device-info.html" class="nav-link">Device Info</a>
-            </li>
-            <li class="nav-item">
-                <a href="history.html" class="nav-link">History</a>
-            </li>
-            <li class="nav-item">
-                <a href="network.html" class="nav-link">Network</a>
-            </li>
-            <li class="nav-item">
-                <a href="location.html" class="nav-link">Location</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Pass Cookies</a>
-            </li>
-        </ul>
-        
-        <a href="#" class="back-button">
-            <span>📄</span>&nbsp;&nbsp;Back
-        </a>
-    </div>
+    <div class="container">
+        <div class="sidebar">
+            <div class="victim-profile">
+                <div class="profile-image">
+                    <img src="/static/image/victim-profile.png" alt="victim Profile">
+                    <h3>victim 1</h3>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="/templates/overview.html" class="nav-link active">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/templates/device.html" class="nav-link">Device Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/templates/history.html" class="nav-link">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/templates/network.html" class="nav-link">Network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="location.html" class="nav-link">Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/templates/passcookies.html" class="nav-link">Pass Cookies</a>
+                    </li>
+                </ul>
+
+                
+                <a href="/templates/overview.html" class="back-button">
+                    <span>📄</span>&nbsp;&nbsp;Back
+                </a>
+            </div>
+
 
     <div class="main-content">
         <div class="header-note">
             <strong>nb:</strong> rencana setelah pencet user, jadi yang ditampilkan halaman ini, semacam ringkasannya, untuk detail bisa pencet sidebar, kalo sekiranya tak cukup satu halaman atau terlalu numpuk, buat scroll
         </div>
-
+    
+    <div class="card-row">
         <div class="info-cards">
             <div class="info-card username">
                 <div class="icon">👤</div>
@@ -153,7 +157,7 @@
         </div>
 
         <div class="watermark">
-            <div style="width: 50px; height: 50px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;">FBI-E14</div>
+            <img src="/static/image/Logo PBL.png" alt="Logo-PBl">
         </div>
     </div>
 
