@@ -3,243 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Device Dashboard - Overview</title>
+    <title>Overview</title>
     <link rel="stylesheet" href="/static/overview.css">
+    <!-- Adding Chart.js library for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="victim-profile">
-            <div class="profile-image">
-                <img src="/static/image/victim-profile.png" alt="victim Profile">
-            <h3>victim 1</h3>
-        </div>
-        
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link active">Overview</a>
-            </li>
-            <li class="nav-item">
-                <a href="device-info.html" class="nav-link">Device Info</a>
-            </li>
-            <li class="nav-item">
-                <a href="history.html" class="nav-link">History</a>
-            </li>
-            <li class="nav-item">
-                <a href="network.html" class="nav-link">Network</a>
-            </li>
-            <li class="nav-item">
-                <a href="location.html" class="nav-link">Location</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Pass Cookies</a>
-            </li>
-        </ul>
-        
-        <a href="#" class="back-button">
-            <span>📄</span>&nbsp;&nbsp;Back
-        </a>
-    </div>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="admin-profile">
+                <div class="profile-image">
+                    <img src="/static/image/admin-profil.jpg" alt="Admin Profile Picture">
+                </div>
+                <h2>User 1</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="nav-item active" href="/overview">Overview</a>
+                <a class="nav-item" href="/deviceinfo">Device Info</a>
+                <a class="nav-item" href="/history">History</a>
+                <a class="nav-item" href="/network">Network</a>
+                <a class="nav-item" href="/location">Location</a>
+                <a class="nav-item" href="/passcookies">Pass Cookies</a>
+            </nav>
+            <div class="logout-section">
+                <a href="/logout" class="logout-btn">
+                    <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
+                    Logout
+                </a>
+            </div>
+        </aside>
 
-    <div class="main-content">
-        <div class="header-note">
-            <strong>nb:</strong> rencana setelah pencet user, jadi yang ditampilkan halaman ini, semacam ringkasannya, untuk detail bisa pencet sidebar, kalo sekiranya tak cukup satu halaman atau terlalu numpuk, buat scroll
-        </div>
-
-        <div class="info-cards">
-            <div class="info-card username">
-                <div class="icon">👤</div>
-                <div class="content">
-                    <h3>Username:</h3>
-                    <p>Hostname:</p>
-                </div>
-            </div>
-            <div class="info-card location">
-                <div class="icon">📍</div>
-                <div class="content">
-                    <h3>City:</h3>
-                    <p>Region:</p>
-                    <p>Country:</p>
-                </div>
-            </div>
-            <div class="info-card system">
-                <div class="icon">💻</div>
-                <div class="content">
-                    <h3>Operating System:</h3>
-                </div>
-            </div>
-            <div class="info-card network">
-                <div class="icon">🌐</div>
-                <div class="content">
-                    <h3>Local IP:</h3>
-                    <p>Public IP:</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="network-section">
-            <h2>Network</h2>
-            <div class="chart-container">
-                <div class="chart-tooltip">
-                    Item 3<br>
-                    Series 1: 23<br>
-                    Series 2: 15
-                </div>
-                
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <div class="legend-dot sent"></div>
-                        <span>Packet Sent</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot receive"></div>
-                        <span>Packet Receive</span>
-                    </div>
-                </div>
-                
-                <canvas class="chart-canvas" id="networkChart"></canvas>
-            </div>
-        </div>
-
-        <div class="bottom-grid">
-            <div class="location-section">
-                <h3>Location</h3>
-                <div class="map-placeholder">
-                    🗺️ Interactive Map
-                </div>
-            </div>
-
-            <div class="history-section">
-                <h3>History Browser</h3>
-                <div class="browser-header">Google Chrome</div>
-                <div class="history-list">
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">...</div>
-                </div>
-            </div>
-
-            <div class="cookies-section">
-                <h3>Password Cookies</h3>
-                <div class="cookie-item">
-                    <div class="url">Url :</div>
-                    <div class="cookie-details">
-                        <div class="cookie-avatar"></div>
-                        <div>
-                            <div>Username : xyz_xyzxyZxyZ</div>
-                            <div>Password : 1234567890</div>
+        <main class="overview">
+            <div class="overview-grid">
+                <section class="device-info">
+                    <h2>Device Info</h2>
+                    <div class="device-info-grid">
+                        <div class="device-info-box">
+                            <p><strong>Username:</strong> User1</p>
+                        </div>
+                        <div class="device-info-box">
+                            <p><strong>Hostname:</strong> Host123</p>
+                        </div>
+                        <div class="device-info-box">
+                            <p><strong>City:</strong> Batam</p>
+                        </div>
+                        <div class="device-info-box">
+                            <p><strong>Region:</strong> Riau</p>
+                        </div>
+                        <div class="device-info-box">
+                            <p><strong>Country:</strong> Indonesia</p>
+                        </div>
+                        <div class="device-info-box">
+                            <p><strong>Operating System:</strong> Windows 10</p>
+                        </div>
+                        <div class="device-info-box">
+                            <p><strong>Local IP:</strong> 192.168.1.1</p>
+                        </div>
+                        <div class="device-info-box">
+                            <p><strong>Public IP:</strong> 123.45.67.89</p>
                         </div>
                     </div>
-                </div>
-                <div class="cookie-item">
-                    <div class="url">Url :</div>
-                    <div class="cookie-details">
-                        <div class="cookie-avatar"></div>
-                        <div>
-                            <div>Username : xyz_xyzxyZxyZ</div>
-                            <div>Password : 1234567890</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </section>
 
-        <div class="watermark">
-            <div style="width: 50px; height: 50px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;">FBI-E14</div>
-        </div>
+                <section class="network">
+                    <h2>Network</h2>
+                    <div class="chart-container">
+                        <!-- The Canvas element where the chart will be drawn -->
+                        <canvas id="networkChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="location">
+                    <h2>Location</h2>
+                    <div class="location-map">
+                        <iframe 
+                            src="https://www.google.com/maps?q=3WXm%2B84G,%20Tj.%20Riau,%20Kec.%20Sekupang,%20Kota%20Batam,%20Kepulauan%20Riau&hl=en&z=12&output=embed" 
+                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </section>
+
+                <section class="password-cookies">
+                    <h2>Password Cookies</h2>
+                    <div class="password-entry">
+                        <p><strong>Url:</strong> xyz.com</p>
+                        <p><strong>Username:</strong> xyz_xyzxyzxyz</p>
+                        <p><strong>Password:</strong> 1234567890</p>
+                    </div>
+                </section>
+
+                <section class="history">
+                    <h2>History Browser</h2>
+                    <div class="history-links">
+                        <p><strong>Google Chrome</strong></p>
+                        <ul>
+                            <li><a href="#">https://www.canvas.com/design/DAGRi3UnX...</a></li>
+                            <li><a href="#">https://www.canvas.com/design/DAGRi3UnX...</a></li>
+                            <!-- More links here -->
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
     </div>
 
+    <!-- JavaScript for Chart.js -->
     <script>
-        // Simple chart drawing
-        const canvas = document.getElementById('networkChart');
-        const ctx = canvas.getContext('2d');
-        
-        // Set canvas size
-        canvas.width = canvas.offsetWidth * 2;
-        canvas.height = canvas.offsetHeight * 2;
-        ctx.scale(2, 2);
-        
-        // Chart data points
-        const data1 = [18, 25, 22, 15, 28]; // Series 1
-        const data2 = [22, 28, 25, 23, 30]; // Series 2
-        const labels = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
-        
-        const chartWidth = canvas.offsetWidth - 80;
-        const chartHeight = canvas.offsetHeight - 80;
-        const startX = 40;
-        const startY = 40;
-        
-        // Draw grid lines
-        ctx.strokeStyle = '#e0e0e0';
-        ctx.lineWidth = 1;
-        
-        // Horizontal lines
-        for (let i = 0; i <= 5; i++) {
-            const y = startY + (chartHeight / 5) * i;
-            ctx.beginPath();
-            ctx.moveTo(startX, y);
-            ctx.lineTo(startX + chartWidth, y);
-            ctx.stroke();
-            
-            // Y-axis labels
-            ctx.fillStyle = '#666';
-            ctx.font = '10px Arial';
-            ctx.textAlign = 'right';
-            ctx.fillText((30 - i * 6).toString(), startX - 5, y + 3);
-        }
-        
-        // Vertical lines and X-axis labels
-        for (let i = 0; i <= 4; i++) {
-            const x = startX + (chartWidth / 4) * i;
-            ctx.beginPath();
-            ctx.moveTo(x, startY);
-            ctx.lineTo(x, startY + chartHeight);
-            ctx.stroke();
-            
-            // X-axis labels
-            ctx.fillStyle = '#666';
-            ctx.font = '10px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(labels[i], x, startY + chartHeight + 15);
-        }
-        
-        // Draw lines
-        function drawLine(data, color) {
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            
-            for (let i = 0; i < data.length; i++) {
-                const x = startX + (chartWidth / 4) * i;
-                const y = startY + chartHeight - (data[i] / 30) * chartHeight;
-                
-                if (i === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
+        var ctx = document.getElementById('networkChart').getContext('2d');
+        var networkChart = new Chart(ctx, {
+            type: 'line', // Line chart
+            data: {
+                labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'], // X-axis labels
+                datasets: [{
+                    label: 'Packet Sent',
+                    data: [22, 28, 19, 30, 35], // Data for Packet Sent
+                    borderColor: 'rgba(54, 162, 235, 1)', // Blue color
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: true,
+                },
+                {
+                    label: 'Packet Receive',
+                    data: [20, 23, 22, 25, 30], // Data for Packet Receive
+                    borderColor: 'rgba(153, 102, 255, 1)', // Brown color
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
                 }
-                
-                // Draw point
-                ctx.fillStyle = color;
-                ctx.beginPath();
-                ctx.arc(x, y, 3, 0, 2 * Math.PI);
-                ctx.fill();
-                ctx.beginPath();
             }
-            ctx.stroke();
-        }
-        
-        // Draw both series
-        drawLine(data2, '#8b5a3c'); // Brown line (Packet Receive)
-        drawLine(data1, '#6b73ff'); // Blue line (Packet Sent)
+        });
     </script>
 </body>
 </html>

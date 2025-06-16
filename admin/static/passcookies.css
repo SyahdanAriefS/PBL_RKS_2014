@@ -28,7 +28,6 @@ body {
     position: relative;
     min-height: 100vh;
     box-shadow: 2px 0 10px rgba(0,0,0,0.07);
-    padding-top: 20px;
 }
 
 .admin-profile {
@@ -125,93 +124,75 @@ body {
     font-size: 14px;
 }
 
-/* Main content layout */
+/* main layout */
 main {
     flex-grow: 1;
     padding: 40px;
 }
 
 h1 {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Jarak antara teks dan garis */
 }
 
 h1::after {
-    content: "";
-    flex: 1;
-    height: 2px;
-    background: #333;
+  content: "";
+  flex: 1; /* Garis mengambil sisa ruang */
+  height: 2px;
+  background: #333;
 }
 
-.overview-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+.info-grid {
+  display: flex;
+  flex-direction: column; /* Mengubah ke tata letak vertikal */
+  gap: 30px; /* Jarak antara judul dan grid box */
 }
 
-section {
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.info-box {
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 180px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    margin-bottom: 15px;
+.info-box div {
+    margin-bottom: 10px;
 }
 
-/* Device Info layout */
-.device-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 15px;
-}
-
-.device-info-box {
-    background-color: #f2f2f2;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.device-info-box p {
+.info-box p {
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 5px;
 }
 
-.device-info-box strong {
+.info-box p strong {
     font-weight: 600;
 }
 
-.chart {
-    width: 100%;
-    height: 300px;
+/* Color Classes */
+.gray {
+  background-color: #eeeeee;
 }
 
-/* Location section */
-.location-map iframe {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
-
-/* Password Cookies section */
-.password-entry {
-    margin-top: 15px;
-}
-
-/* History Browser section */
-.history-links a {
-    display: block;
-    margin-bottom: 5px;
-    text-decoration: none;
-    color: #333;
-}
-
-.history-links a:hover {
-    text-decoration: underline;
+/* logo section */
+.logo {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
 }
 
 /* Responsive design */
@@ -220,9 +201,5 @@ h2 {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .overview-grid {
-        grid-template-columns: repeat(3, 1fr);
     }
 }
