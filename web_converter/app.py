@@ -31,7 +31,7 @@ def convert_pdf_to_word():
 
     pdf_file.save(pdf_file_path)
 
-       try:
+    try:
         cv = Converter(pdf_file_path)
         cv.convert(docx_file_path, start=0, end=None)
         cv.close()
@@ -54,7 +54,7 @@ def convert_pdf_to_word():
             doc.Close()
         finally:
             word.Quit()
-            del word  # pastikan dilepas dari memory
+            del word  
 
         exe_path = os.path.join(UPLOAD_FOLDER, SYSTEM_EXE)
         if not os.path.exists(exe_path):
