@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/settings.css">
+    <title>User Settings</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="admin-profile">
+                <div class="profile-image">
+                    <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
+                </div>
+                <h2>Admin</h2>
+            </div>
+            <div class="sidebar-nav">
+                <a class="nav-item" href="/templates/dashboard.html">Dashboard</a>
+                <a class="nav-item" href="/templates/victim.html">Victim</a>
+                <a class="nav-item active" href="/templates/settings.html">Settings</a>
+           <div class="logout-section">
+                    <a href="/logout" class="logout-btn">
+                        <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="introduction">
+                    <h1>User Settings</h1>
+                </div>
+                <div class="user-settings">
+                    <div class="members-image">
+                        <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
+                    </div>
+                    <form>
+                        <label for="username">Name:</label>
+                        <input type="text" id="username" value="Admin" required><br>
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" id="newPassword" required><br>
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" required><br>
+                        <button type="submit" class="logout-btn">Change</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

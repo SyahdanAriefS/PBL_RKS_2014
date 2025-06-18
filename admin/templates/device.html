@@ -4,13 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>BrowserWatch Lab Dashboard</title>
-        <link rel="stylesheet" href="/admin/static/device.css">
+        <link rel="stylesheet" href="/static/device.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     </head>
     <body>
         <div class="container">
-            <!-- Sidebar -->
             <div class="sidebar">
                 <div class="admin-profile">
                     <div class="profile-image">
@@ -21,25 +20,25 @@
                 
                 
                 <nav class="sidebar-nav">
-                    <a href="#" class="nav-item">Overview</a>
-                    <a href="#" class="nav-item active">Device Info</a>
-                    <a href="#" class="nav-item">History</a>
-                    <a href="#" class="nav-item">Network</a>
-                    <a href="#" class="nav-item">Location</a>
+                    <a class="nav-item" href="/templates/overview.html">Overview</a>
+                    <a class="nav-item active" href="/templates/device.html">Device Info</a>
+                    <a class="nav-item" href="/templates/history.html">History</a>
+                    <a class="nav-item" href="/templates/network.html">Network</a>
+                    <a class="nav-item" href="/templates/location.html">Location</a>
+                    <a class="nav-item" href="/templates/passcookies.html">Pass Cookies</a>
                 </nav>
                 
                 <div class="logout-section">
-                    <a href="#" class="logout-btn">
+                    <a href="/logout" class="logout-btn">
                         <img src="/admin/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
                         Logout
                     </a>
                 </div>
             </div>
 
-<!-- main -->  
             <div class="info-grid">
                 <h1 class="title">SpyWare Result</h1>
-                    <div class="grid-container"> <!-- Container baru untuk grid box -->
+                    <div class="grid-container"> 
 
                     <div class="info-box beige">
                         <div>
@@ -74,7 +73,6 @@
                     </div>
                 </div>
 
-                            <!-- Logo -->
             <div class="logo">
                 <img src="/admin/static/image/Logo PBL.png" alt="FBL Logo">
             </div>
