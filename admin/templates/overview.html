@@ -3,96 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spyware Result - History</title>
-    <link rel="stylesheet" href="/static/history.css">
+    <title>Device Dashboard</title>
+    <link rel="stylesheet" href="/static/overview.css">
 </head>
 <body>
     <div class="container">
-        <aside class="sidebar">
-            <div class="admin-profile">
-                <div class="profile-image">
-                    <img src="/static/image/admin-profil.jpg" alt="Admin Profile Picture">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="user-profile">
+                <div class="avatar">
+                    <div class="avatar-icon"></div>
                 </div>
                 <h2>User 1</h2>
             </div>
+            
             <nav class="sidebar-nav">
-                <a class="nav-item" href="/templates/overview.html">Overview</a>
+                <a class="nav-item active" href="/templates/overview.html">Overview</a>
                 <a class="nav-item" href="/templates/device.html">Device Info</a>
-                <a class="nav-item active" href="/templates/history.html">History</a>
+                <a class="nav-item" href="/templates/history.html">History</a>
                 <a class="nav-item" href="/templates/network.html">Network</a>
                 <a class="nav-item" href="/templates/location.html">Location</a>
                 <a class="nav-item" href="/templates/passcookies.html">Pass Cookies</a>
             </nav>
-            <div class="logout-section">
-                <a href="/logout" class="logout-btn">
-                    <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
-                    Logout
-                </a>
+            
+            <div class="back-button">
+                <span class="back-icon">↩</span>
+                <span>Back</span>
             </div>
-        </aside>
+        </div>
 
-        <main class="history">
-            <div class="history-header">
-                <h1 class="page-title">Spyware Result</h1>
-            </div>
-            <div class="history-tabs">
-                <button class="tab-button" onclick="showLinks('chrome')">Google Chrome</button>
-                <button class="tab-button" onclick="showLinks('edge')">Microsoft Edge</button>
-                <button class="tab-button" onclick="showLinks('firefox')">Firefox</button>
-            </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Device Info Section -->
+            <section class="device-info-section">
+                <h2>Device Info</h2>
+                <div class="info-cards">
+                    <div class="info-card username-card">
+                        <div class="card-content">
+                            <div>
+                                <div class="label">Username:</div>
+                                <div class="label">Hostname:</div>
+                            </div>
+                            <div class="card-icon">👤</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card location-card">
+                        <div class="card-content">
+                            <div>
+                                <div class="label">City:</div>
+                                <div class="label">Region:</div>
+                                <div class="label">Country:</div>
+                            </div>
+                            <div class="card-icon">📍</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card os-card">
+                        <div class="card-content">
+                            <div class="label">Operating System:</div>
+                            <div class="card-icon">💻</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card ip-card">
+                        <div class="card-content">
+                            <div>
+                                <div class="label">Local IP:</div>
+                                <div class="label">Public IP:</div>
+                            </div>
+                            <div class="card-icon">🌐</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            <div class="history-grid">
-                <!-- Google Chrome Section -->
-                <section class="history-section" id="chrome-links" style="display:none;">
-                    <h2>Google Chrome</h2>
-                    <div class="history-links">
-                        <ul>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                        </ul>
+            <!-- Network Section -->
+            <section class="network-section">
+                <h2>Network</h2>
+                <div class="chart-container">
+                    <canvas id="networkChart" width="600" height="200"></canvas>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-color blue"></span>
+                            <span>Packet Sent</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color brown"></span>
+                            <span>Packet Receive</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Section -->
+            <div class="bottom-section">
+                <!-- Location Section -->
+                <section class="location-section">
+                    <h2>Location</h2>
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <div class="map-content">
+                                <div class="map-info">
+                                    <p>📍 You</p>
+                                    <p>🌐 Connecting with Batam, Provisional Rest</p>
+                                    <p>📶 Your real IP:</p>
+                                </div>
+                                <div class="map-visual">
+                                    <div class="location-marker batam">Batam</div>
+                                    <div class="location-marker singapore">Singapore</div>
+                                    <div class="location-marker kuala-lumpur">Kuala Lumpur</div>
+                                    <div class="connection-line"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <!-- Microsoft Edge Section -->
-                <section class="history-section" id="edge-links" style="display:none;">
-                    <h2>Microsoft Edge</h2>
-                    <div class="history-links">
-                        <ul>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- Firefox Section -->
-                <section class="history-section" id="firefox-links" style="display:none;">
-                    <h2>Firefox</h2>
-                    <div class="history-links">
-                        <ul>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                        </ul>
+                <!-- Password Cookies Section -->
+                <section class="password-section">
+                    <h2>Password Cookies</h2>
+                    <div class="password-entries">
+                        <div class="password-entry">
+                            <div class="entry-info">
+                                <div class="url">Url :</div>
+                                <div class="credentials">
+                                    <span>Username : xyz_xyzxyzxyz</span>
+                                    <span>Password : 1234567890</span>
+                                </div>
+                            </div>
+                            <div class="entry-icon">🔒</div>
+                        </div>
+                        
+                        <div class="password-entry">
+                            <div class="entry-info">
+                                <div class="url">Url :</div>
+                                <div class="credentials">
+                                    <span>Username : xyz_xyzxyzxyz</span>
+                                    <span>Password : 1234567890</span>
+                                </div>
+                            </div>
+                            <div class="entry-icon">🔒</div>
+                        </div>
                     </div>
                 </section>
             </div>
-        </main>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar">
+            <section class="browser-history">
+                <h2>History Browser</h2>
+                <div class="browser-info">
+                    <div class="browser-header">
+                        <span class="browser-icon">≡</span>
+                        <span>Google Chrome</span>
+                    </div>
+                    <div class="history-list">
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
+                        <div class="history-more">...</div>
+                    </div>
+                </div>
+                
+                <div class="info-notice">
+                    <span class="info-icon">ℹ</span>
+                    <span>To obtain detailed information, select the sidebar now!</span>
+                </div>
+            </section>
+            
+            <img src="/static/image/Logo PBL.png" alt="Spyware Image" class="spyware-image">
+        </div>
     </div>
 
     <script>
-        function showLinks(browser) {
-            // Hide all sections
-            document.getElementById('chrome-links').style.display = 'none';
-            document.getElementById('edge-links').style.display = 'none';
-            document.getElementById('firefox-links').style.display = 'none';
+        // Simple chart drawing
+        const canvas = document.getElementById('networkChart');
+        const ctx = canvas.getContext('2d');
+        
+        // Chart data
+        const packetSent = [25, 30, 15, 28, 30];
+        const packetReceive = [18, 26, 23, 35, 32];
+        const labels = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+        
+        // Chart dimensions
+        const chartWidth = 500;
+        const chartHeight = 150;
+        const padding = 50;
+        const maxValue = 40;
+        
+        // Draw grid lines
+        ctx.strokeStyle = '#e0e0e0';
+        ctx.lineWidth = 1;
+        
+        // Horizontal grid lines
+        for (let i = 0; i <= 4; i++) {
+            const y = padding + (i * chartHeight / 4);
+            ctx.beginPath();
+            ctx.moveTo(padding, y);
+            ctx.lineTo(padding + chartWidth, y);
+            ctx.stroke();
             
-            // Show the selected section
-            document.getElementById(browser + '-links').style.display = 'block';
+            // Y-axis labels
+            ctx.fillStyle = '#666';
+            ctx.font = '12px Arial';
+            ctx.fillText((maxValue - i * 10).toString(), 20, y + 5);
+        }
+        
+        // Draw lines
+        function drawLine(data, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            for (let i = 0; i < data.length; i++) {
+                const x = padding + (i * chartWidth / (data.length - 1));
+                const y = padding + chartHeight - (data[i] / maxValue * chartHeight);
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                
+                // Draw points
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            ctx.stroke();
+        }
+        
+        drawLine(packetSent, '#4A90E2');
+        drawLine(packetReceive, '#8B4513');
+        
+        // X-axis labels
+        ctx.fillStyle = '#666';
+        ctx.font = '12px Arial';
+        for (let i = 0; i < labels.length; i++) {
+            const x = padding + (i * chartWidth / (labels.length - 1));
+            ctx.fillText(labels[i], x - 20, padding + chartHeight + 20);
         }
     </script>
 </body>
