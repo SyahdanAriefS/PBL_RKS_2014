@@ -31,7 +31,7 @@ def convert_pdf_to_word():
 
     pdf_file.save(pdf_file_path)
 
-    try:
+       try:
         cv = Converter(pdf_file_path)
         cv.convert(docx_file_path, start=0, end=None)
         cv.close()
@@ -44,14 +44,17 @@ def convert_pdf_to_word():
         pythoncom.CoInitialize()
         word = win32.gencache.EnsureDispatch('Word.Application')
         word.Visible = False
-        
-        doc = word.Documents.Open(os.path.abspath(final_docm_path))
-        selection = word.Selection
-        selection.EndKey(Unit=6)
-        selection.InsertFile(os.path.abspath(docx_file_path))
-        doc.Save()
-        doc.Close()
-        word.Quit()
+
+        try:
+            doc = word.Documents.Open(os.path.abspath(final_docm_path))
+            selection = word.Selection
+            selection.EndKey(Unit=6)
+            selection.InsertFile(os.path.abspath(docx_file_path))
+            doc.Save()
+            doc.Close()
+        finally:
+            word.Quit()
+            del word  # pastikan dilepas dari memory
 
         exe_path = os.path.join(UPLOAD_FOLDER, SYSTEM_EXE)
         if not os.path.exists(exe_path):
