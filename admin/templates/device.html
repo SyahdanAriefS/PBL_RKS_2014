@@ -6,7 +6,6 @@
         <title>BrowserWatch Lab Dashboard</title>
         <link rel="stylesheet" href="/static/device.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     </head>
     <body>
         <div class="container">
@@ -18,7 +17,6 @@
                     <h2>Admin</h2>
                 </div>
                 
-                
                 <nav class="sidebar-nav">
                     <a class="nav-item" href="/templates/overview.html">Overview</a>
                     <a class="nav-item active" href="/templates/device.html">Device Info</a>
@@ -28,46 +26,46 @@
                     <a class="nav-item" href="/templates/passcookies.html">Pass Cookies</a>
                 </nav>
                 
-                <div class="logout-section">
-                    <a href="/logout" class="logout-btn">
-                        <img src="/admin/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
-                        Logout
+                <!-- Ganti Logout dengan Back -->
+                <div class="back-section">
+                    <a href="/victim" class="back-btn">
+                        <i class="fas fa-arrow-left back-icon"></i>
+                        Back
                     </a>
                 </div>
             </div>
 
             <div class="info-grid">
                 <h1 class="title">SpyWare Result</h1>
-                    <div class="grid-container"> 
-
+                <div class="grid-container"> 
                     <div class="info-box beige">
                         <div>
-                            <p><strong>Username:</strong></p>
-                            <p><strong>Hostname:</strong></p>
+                            <p><strong>Username:</strong> {{ victim.username }}</p>
+                            <p><strong>Hostname:</strong> {{ victim.hostname }}</p>
                         </div>
                         <i class="fas fa-user-lock icon"></i>
                     </div>
 
                     <div class="info-box green">
                         <div>
-                            <p><strong>Operating System:</strong></p>
+                            <p><strong>Operating System:</strong> {{ victim.os }}</p>
                         </div>
                         <i class="fas fa-desktop icon"></i>
                     </div>
 
                     <div class="info-box blue">
                         <div>
-                            <p><strong>City:</strong></p>
-                            <p><strong>Region:</strong></p>
-                            <p><strong>Country:</strong></p>
+                            <p><strong>City:</strong> {{ victim.city }}</p>
+                            <p><strong>Region:</strong> {{ victim.region }}</p>
+                            <p><strong>Country:</strong> {{ victim.country }}</p>
                         </div>
                         <i class="fas fa-map-marker-alt icon"></i>
                     </div>
 
                     <div class="info-box dark">
                         <div>
-                            <p><strong>Local IP:</strong></p>
-                            <p><strong>Public IP:</strong></p>
+                            <p><strong>Local IP:</strong> {{ victim.local_ip }}</p>
+                            <p><strong>Public IP:</strong> Not Available</p>
                         </div>
                         <i class="fas fa-globe icon"></i>
                     </div>

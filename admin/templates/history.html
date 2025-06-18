@@ -47,10 +47,9 @@
                     <h2>Google Chrome</h2>
                     <div class="history-links">
                         <ul>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
+                            {% for link in victim_history.chrome_history.split("\n") %}
+                                <li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </section>
@@ -60,10 +59,9 @@
                     <h2>Microsoft Edge</h2>
                     <div class="history-links">
                         <ul>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
+                            {% for link in victim_history.edge_history.split("\n") %}
+                                <li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </section>
@@ -73,10 +71,9 @@
                     <h2>Firefox</h2>
                     <div class="history-links">
                         <ul>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGiR3UnX_s/81PojqdzEr-Jc-vIbYdOzg/edit</a></li>
+                            {% for link in victim_history.firefox_history.split("\n") %}
+                                <li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </section>

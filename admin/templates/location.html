@@ -35,9 +35,12 @@
             <h1 class="title">User Location</h1>
             <div class="location-container">
                 <iframe 
-                    src="https://www.google.com/maps?q=3WXm%2B84G,%20Tj.%20Riau,%20Kec.%20Sekupang,%20Kota%20Batam,%20Kepulauan%20Riau&hl=en&z=12&output=embed" 
+                    src="https://www.google.com/maps?q={{ victim_location.latitude }},{{ victim_location.longitude }}&hl=en&z=12&output=embed" 
                     width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                <p class="location-info">3WXM+84G, Tj. Riau, Kec. Sekupang, Kota Batam, Kepulauan Riau</p>
+                <p class="location-info">
+                    {{ victim_location.latitude }}, {{ victim_location.longitude }},<br>
+                    {{ victim_location.city }}, {{ victim_location.region }}, {{ victim_location.country }}
+                </p>
             </div>
         </main>
     </div>

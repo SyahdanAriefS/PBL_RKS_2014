@@ -35,38 +35,17 @@
 
         <main class="info-grid">
             <h1 class="title">Password Cookies</h1>
-            <div class="grid-container"> 
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
+            <div class="grid-container">
+                <!-- Loop untuk menampilkan data password cookies -->
+                {% for item in passcookies_data %}
+                    <div class="info-box gray">
+                        <div>
+                            <p><strong>Username:</strong> {{ item.username }}</p>
+                            <p><strong>Password:</strong> {{ item.password }}</p>
+                            <p><strong>Url:</strong> <a href="{{ item.url }}" target="_blank">{{ item.url }}</a></p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
-                    </div>
-                </div>
-
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
-                    </div>
-                </div>
-
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </main>
     </div>

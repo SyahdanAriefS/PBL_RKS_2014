@@ -50,35 +50,51 @@
 
     <!-- Script to render chart -->
     <script>
+        // Mengambil data jaringan dari Flask dan mengonversinya menjadi JSON
+        var networkData = JSON.parse('{{ network_data | tojson | safe }}');
+
+        var labels = [];
+        var packetsSent = [];
+        var packetsReceived = [];
+
+        // Memasukkan data ke dalam array untuk grafik
+        networkData.forEach(function(item) {
+            labels.push(item.created_at); // Menambahkan timestamp ke sumbu X
+            packetsSent.push(item.packets_sent); // Data untuk paket yang dikirim
+            packetsReceived.push(item.packets_recv); // Data untuk paket yang diterima
+        });
+
         var ctx = document.getElementById('networkChart').getContext('2d');
+
+        // Membuat grafik menggunakan Chart.js
         var networkChart = new Chart(ctx, {
-            type: 'line',
+            type: 'line',  // Jenis grafik
             data: {
-                labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'], // X-axis labels
+                labels: labels, // Label sumbu X (waktu atau waktu pengiriman)
                 datasets: [{
                     label: 'Packet Sent',
-                    data: [22, 28, 19, 30, 35], // Data for Packet Sent
-                    borderColor: 'rgba(54, 162, 235, 1)', // Blue color
+                    data: packetsSent, // Data untuk paket yang dikirim
+                    borderColor: 'rgba(54, 162, 235, 1)', // Warna garis untuk data dikirim
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    fill: true,
+                    fill: true, // Isi di bawah garis
                 },
                 {
-                    label: 'Packet Receive',
-                    data: [20, 23, 22, 25, 30], // Data for Packet Receive
-                    borderColor: 'rgba(153, 102, 255, 1)', // Brown color
+                    label: 'Packet Received',
+                    data: packetsReceived, // Data untuk paket yang diterima
+                    borderColor: 'rgba(153, 102, 255, 1)', // Warna garis untuk data diterima
                     backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    fill: true,
+                    fill: true, // Isi di bawah garis
                 }]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true // Mulai sumbu Y dari 0
                     }
                 },
                 plugins: {
                     legend: {
-                        position: 'top',
+                        position: 'top', // Posisi legend di atas grafik
                     },
                 }
             }

@@ -11,15 +11,16 @@
         <div class="sidebar">
             <div class="admin-profile">
                 <div class="profile-image">
-                    <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
+                    <!-- Displaying the profile image dynamically from the database -->
+                    <img src="{{ url_for('static', filename='profile_pictures/' + user['profile_picture']) }}" alt="Admin Profile">
                 </div>
-                <h2>Admin</h2>
+                <h2>{{ user['username'] }}</h2> <!-- Displaying the username dynamically -->
             </div>
             <div class="sidebar-nav">
                 <a class="nav-item" href="/templates/dashboard.html">Dashboard</a>
                 <a class="nav-item" href="/templates/victim.html">Victim</a>
                 <a class="nav-item active" href="/templates/settings.html">Settings</a>
-           <div class="logout-section">
+                <div class="logout-section">
                     <a href="/logout" class="logout-btn">
                         <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
                         Logout
@@ -34,17 +35,30 @@
                 </div>
                 <div class="user-settings">
                     <div class="members-image">
-                        <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
+                        <!-- Displaying the profile image dynamically from the database -->
+                        <img src="{{ url_for('static', filename='profile_pictures/' + user['profile_picture']) }}" alt="Admin Profile">
                     </div>
-                    <form>
+                    <form method="POST" enctype="multipart/form-data">
                         <label for="username">Name:</label>
-                        <input type="text" id="username" value="Admin" required><br>
+                        <input type="text" id="username" value="{{ user['username'] }}" required disabled><br>
                         <label for="newPassword">New Password:</label>
-                        <input type="password" id="newPassword" required><br>
+                        <input type="password" id="newPassword" name="newPassword" required><br>
                         <label for="confirmPassword">Confirm Password:</label>
-                        <input type="password" id="confirmPassword" required><br>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+                        <label for="profile_picture">Change Profile Picture:</label>
+                        <input type="file" id="profile_picture" name="profile_picture"><br>
                         <button type="submit" class="logout-btn">Change</button>
                     </form>
+                    <!-- Flash messages for success or error -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <ul>
+                                {% for category, message in messages %}
+                                    <li class="{{ category }}">{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </div>
