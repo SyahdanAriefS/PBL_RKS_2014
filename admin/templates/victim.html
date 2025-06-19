@@ -14,9 +14,9 @@
             <div class="admin-profile">
                 <div class="profile-image">
                     <!-- Dynamically load profile image -->
-                    <img id="profileImage" src="{{ url_for('static', filename='uploads/' + user.profile_picture) }}" alt="Admin Profile">
+                    <img id="profileImage" src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                <h2 id="username">{{ user.username }}</h2> <!-- Dynamically load username -->
+                <h2 id="username">admin 1</h2> <!-- Dynamically load username -->
             </div>
             <div class="sidebar-nav">
                 <a class="nav-item" href="/templates/dashboard.html">Dashboard</a>
@@ -35,20 +35,37 @@
                 <div class="introduction">
                     <h1>Choose the Victim</h1>
                 </div>
-                <table id="victimTable" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Hostname</th>
-                            <th>IP Address</th>
-                            <th>Start date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="victimTableBody">
-                        <!-- Data will be inserted here using JavaScript -->
-                    </tbody>
-                </table>
+               <table id="victimTable" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Hostname</th>
+            <th>IP Address</th>
+            <th>Start date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="victimTableBody">
+        <tr>
+            <td>user1</td>
+            <td>host1</td>
+            <td>192.168.1.10</td>
+            <td>2024-06-19</td>
+            <td>
+                <a href="/templates/device.html">Detail</a>
+            </td>
+        </tr>
+        <tr>
+            <td>user2</td>
+            <td>host2</td>
+            <td>192.168.1.11</td>
+            <td>2024-06-18</td>
+            <td>
+                <a href="/templates/device.html">Detail</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
             </div>
         </div>
     </div>

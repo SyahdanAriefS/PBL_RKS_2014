@@ -12,9 +12,9 @@
             <div class="admin-profile">
                 <div class="profile-image">
                     <!-- Displaying the profile image dynamically from the database -->
-                    <img src="{{ url_for('static', filename='profile_pictures/' + user['profile_picture']) }}" alt="Admin Profile">
+                    <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                <h2>{{ user['username'] }}</h2> <!-- Displaying the username dynamically -->
+                <h2>username</h2> <!-- Displaying the username dynamically -->
             </div>
             <div class="sidebar-nav">
                 <a class="nav-item" href="/templates/dashboard.html">Dashboard</a>
@@ -35,30 +35,33 @@
                 </div>
                 <div class="user-settings">
                     <div class="members-image">
+                       
                         <!-- Displaying the profile image dynamically from the database -->
-                        <img src="{{ url_for('static', filename='profile_pictures/' + user['profile_picture']) }}" alt="Admin Profile">
+                        <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
                     </div>
+                    <h2>Change Your Settings</h2>
+                    <!--bagian form setting-->
                     <form method="POST" enctype="multipart/form-data">
+
                         <label for="username">Name:</label>
-                        <input type="text" id="username" value="{{ user['username'] }}" required disabled><br>
+                        <input type="text" id="username" value="username" required><br>
+
                         <label for="newPassword">New Password:</label>
                         <input type="password" id="newPassword" name="newPassword" required><br>
+
                         <label for="confirmPassword">Confirm Password:</label>
                         <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+
                         <label for="profile_picture">Change Profile Picture:</label>
                         <input type="file" id="profile_picture" name="profile_picture"><br>
+
                         <button type="submit" class="logout-btn">Change</button>
                     </form>
+
                     <!-- Flash messages for success or error -->
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                            <ul>
-                                {% for category, message in messages %}
-                                    <li class="{{ category }}">{{ message }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    {% endwith %}
+                     <div id="notif-popup" class="notif-popup">
+                        Akun berhasil di ubah!
+                            </div>
                 </div>
             </div>
         </div>
