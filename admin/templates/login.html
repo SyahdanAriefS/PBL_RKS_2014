@@ -10,12 +10,15 @@
 <body>
     <div class="container">
         <div class="login-section">
-            {% if error}
+
+            {% if error %}
+
             <div class="error-popup">
                 <div class="error-message">
                     <p>Login Failed</p>
                 </div>
             </div>
+
             {% endif %}
            
             <form method="POST" action="/login">
