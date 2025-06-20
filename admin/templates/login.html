@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="/static/login.css">
     
 </head>
 <body>
     <div class="container">
         <div class="login-section">
-            {% if error %}
+            {% if error}
             <div class="error-popup">
-            {{ error }}
+                <div class="error-message">
+                    <p>Login Failed</p>
+                </div>
             </div>
             {% endif %}
+           
             <form method="POST" action="/login">
             <div class="input-group">
                 <input type="text" id="username" name="username" placeholder="Username" required>
