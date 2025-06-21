@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
         <div class="sidebar">
             <div class="user-profile">
                 <div class="avatar">
@@ -18,23 +17,21 @@
             </div>
             <div class="nav-menu"></div>
             <nav class="sidebar-nav">
-                <a class="nav-item active" href="/templates/overview.html">Overview</a>
-                <a class="nav-item" href="/templates/device.html">Device Info</a>
-                <a class="nav-item" href="/templates/history.html">History</a>
-                <a class="nav-item" href="/templates/network.html">Network</a>
-                <a class="nav-item" href="/templates/location.html">Location</a>
-                <a class="nav-item" href="/templates/passcookies.html">Pass Cookies</a>
+                <a class="nav-item active" href="/overview">Overview</a>
+                <a class="nav-item" href="/device">Device Info</a>
+                <a class="nav-item" href="/history">History</a>
+                <a class="nav-item" href="/network">Network</a>
+                <a class="nav-item" href="/location">Location</a>
+                <a class="nav-item" href="/passcookies">Pass Cookies</a>
             </nav>
             
             <div class="back-button">
                 <span class="back-icon">↩</span>
-                <span><a href="/templates/victim.html">Back</a></span>
+                <span><a href="/victim">Back</a></span>
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
-            <!-- Device Info Section -->
             <section class="device-info-section">
                 <h2>Device Info</h2>
                 <div class="info-cards">
@@ -78,7 +75,6 @@
                 </div>
             </section>
 
-            <!-- Network Section -->
             <section class="network-section">
                 <h2>Network</h2>
                 <div class="chart-container">
@@ -96,9 +92,7 @@
                 </div>
             </section>
 
-            <!-- Bottom Section -->
             <div class="bottom-section">
-                <!-- Location Section -->
                 <section class="location-section">
                     <h2>Location</h2>
                     <div class="map-container">
@@ -120,7 +114,6 @@
                     </div>
                 </section>
 
-                <!-- Password Cookies Section -->
                 <section class="password-section">
                     <h2>Password Cookies</h2>
                     <div class="password-entries">
@@ -141,26 +134,21 @@
     </div>
 
     <script>
-        // Simple chart drawing for network data (example)
         const canvas = document.getElementById('networkChart');
         const ctx = canvas.getContext('2d');
         
-        // Chart data
         const packetSent = [25, 30, 15, 28, 30];
         const packetReceive = [18, 26, 23, 35, 32];
         const labels = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
         
-        // Chart dimensions
         const chartWidth = 500;
         const chartHeight = 150;
         const padding = 50;
         const maxValue = 40;
         
-        // Draw grid lines
         ctx.strokeStyle = '#e0e0e0';
         ctx.lineWidth = 1;
         
-        // Horizontal grid lines
         for (let i = 0; i <= 4; i++) {
             const y = padding + (i * chartHeight / 4);
             ctx.beginPath();
@@ -168,13 +156,11 @@
             ctx.lineTo(padding + chartWidth, y);
             ctx.stroke();
             
-            // Y-axis labels
             ctx.fillStyle = '#666';
             ctx.font = '12px Arial';
             ctx.fillText((maxValue - i * 10).toString(), 20, y + 5);
         }
         
-        // Draw lines
         function drawLine(data, color) {
             ctx.strokeStyle = color;
             ctx.lineWidth = 3;
@@ -190,7 +176,6 @@
                     ctx.lineTo(x, y);
                 }
                 
-                // Draw points
                 ctx.fillStyle = color;
                 ctx.beginPath();
                 ctx.arc(x, y, 4, 0, 2 * Math.PI);
@@ -202,7 +187,6 @@
         drawLine(packetSent, '#4A90E2');
         drawLine(packetReceive, '#8B4513');
         
-        // X-axis labels
         ctx.fillStyle = '#666';
         ctx.font = '12px Arial';
         for (let i = 0; i < labels.length; i++) {

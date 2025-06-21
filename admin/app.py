@@ -64,6 +64,12 @@ def dashboard():
 
 @app.route('/victim')
 def victim():
+    user_id = session.get('id')
+    conn = get_db_connection()
+    cursor = conn.cursor(DictCursor)
+    cursor.execute("SELECT username FROM list_admin WHERE id = %s", (user_id,))
+    user_data = cursor.fetchone()
+    conn.close()
     return render_template('victim.html')
 
 @app.route('/get_victims', methods=['GET'])
@@ -102,7 +108,7 @@ def settings():
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT username, password, profile_picture FROM user WHERE id = %s", (user_id,))
+    cursor.execute("SELECT username, password FROM list_admin WHERE id = %s", (user_id,))
     user_data = cursor.fetchone()
 
     if request.method == 'POST':
@@ -114,7 +120,7 @@ def settings():
             return render_template('settings.html', user=user_data)
 
         hashed_password = hashpw(new_password.encode('utf-8'), gensalt())
-        cursor.execute("UPDATE user SET password = %s WHERE id = %s", (hashed_password, user_id))
+        cursor.execute("UPDATE list_admin SET password = %s WHERE id = %s", (hashed_password, user_id))
 
         if 'profile_picture' in request.files:
             file = request.files['profile_picture']
@@ -123,7 +129,7 @@ def settings():
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(file_path)
 
-                cursor.execute("UPDATE user SET profile_picture = %s WHERE id = %s", (filename, user_id))
+                cursor.execute("UPDATE list_admin SET profile_picture = %s WHERE id = %s", (filename, user_id))
 
         conn.commit()
         flash("Profile updated successfully!", "success")

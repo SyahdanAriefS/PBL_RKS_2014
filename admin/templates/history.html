@@ -16,12 +16,12 @@
                 <h2>User 1</h2>
             </div>
             <nav class="sidebar-nav">
-                <a class="nav-item active" href="/templates/overview.html">Overview</a>
-                <a class="nav-item" href="/templates/device.html">Device Info</a>
-                <a class="nav-item" href="/templates/history.html">History</a>
-                <a class="nav-item" href="/templates/network.html">Network</a>
-                <a class="nav-item" href="/templates/location.html">Location</a>
-                <a class="nav-item" href="/templates/passcookies.html">Pass Cookies</a>
+                <a class="nav-item active" href="/overview">Overview</a>
+                <a class="nav-item" href="/device">Device Info</a>
+                <a class="nav-item" href="/history">History</a>
+                <a class="nav-item" href="/network">Network</a>
+                <a class="nav-item" href="/location">Location</a>
+                <a class="nav-item" href="/passcookies">Pass Cookies</a>
             </nav>
             <div class="logout-section">
                 <a href="/logout" class="logout-btn">
@@ -42,7 +42,6 @@
             </div>
 
             <div class="history-grid">
-                <!-- Google Chrome Section -->
                 <section class="history-section" id="chrome-links" style="display:none;">
                     <h2>Google Chrome</h2>
                     <div class="history-links">
@@ -54,7 +53,6 @@
                     </div>
                 </section>
 
-                <!-- Microsoft Edge Section -->
                 <section class="history-section" id="edge-links" style="display:none;">
                     <h2>Microsoft Edge</h2>
                     <div class="history-links">
@@ -66,7 +64,6 @@
                     </div>
                 </section>
 
-                <!-- Firefox Section -->
                 <section class="history-section" id="firefox-links" style="display:none;">
                     <h2>Firefox</h2>
                     <div class="history-links">
@@ -83,12 +80,10 @@
 
     <script>
         function showLinks(browser) {
-            // Hide all sections
             document.getElementById('chrome-links').style.display = 'none';
             document.getElementById('edge-links').style.display = 'none';
             document.getElementById('firefox-links').style.display = 'none';
             
-            // Show the selected section
             document.getElementById(browser + '-links').style.display = 'block';
         }
     </script>

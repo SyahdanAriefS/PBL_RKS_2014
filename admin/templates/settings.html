@@ -11,15 +11,14 @@
         <div class="sidebar">
             <div class="admin-profile">
                 <div class="profile-image">
-                    <!-- Displaying the profile image dynamically from the database -->
                     <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                <h2>username</h2> <!-- Displaying the username dynamically -->
+                <h2>username</h2> 
             </div>
             <div class="sidebar-nav">
-                <a class="nav-item" href="/templates/dashboard.html">Dashboard</a>
-                <a class="nav-item" href="/templates/victim.html">Victim</a>
-                <a class="nav-item active" href="/templates/settings.html">Settings</a>
+                <a class="nav-item" href="/dashboard">Dashboard</a>
+                <a class="nav-item" href="/victim">Victim</a>
+                <a class="nav-item active" href="/settings">Settings</a>
                 <div class="logout-section">
                     <a href="/logout" class="logout-btn">
                         <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
@@ -36,11 +35,9 @@
                 <div class="user-settings">
                     <div class="members-image">
                        
-                        <!-- Displaying the profile image dynamically from the database -->
                         <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
                     </div>
                     <h2>Change Your Settings</h2>
-                    <!--bagian form setting-->
                     <form method="POST" enctype="multipart/form-data">
 
                         <label for="username">Name:</label>
@@ -58,7 +55,6 @@
                         <button type="submit" class="logout-btn">Change</button>
                     </form>
 
-                    <!-- Flash messages for success or error -->
                      <div id="notif-popup" class="notif-popup">
                         Akun berhasil di ubah!
                             </div>

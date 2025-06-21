@@ -11,16 +11,15 @@
         <div class="sidebar">
             <div class="admin-profile">
                 <div class="profile-image">
-                    <!-- Dynamically load profile image -->
                     <img id="profileImage" src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                <h2 id="username">admin 1</h2> <!-- Dynamically load username -->
+                <h2 id="username">admin 1</h2> 
             </div>
             
             <nav class="sidebar-nav">
-                <a href="/templates/dashboard.html" class="nav-item active">Dashboard</a>
-                <a href="/templates/victim.html" class="nav-item">Victim</a>
-                <a href="/templates/settings.html" class="nav-item">Settings</a>
+                <a href="/dashboard" class="nav-item active">Dashboard</a>
+                <a href="/victim" class="nav-item">Victim</a>
+                <a href="/settings" class="nav-item">Settings</a>
             </nav>
             
             <div class="logout-section">
@@ -61,15 +60,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Fetch user details to update profile image and username dynamically
             $.ajax({
-                url: '/get_user',  // This route fetches the logged-in user's data
+                url: '/get_user',  
                 method: 'GET',
                 success: function(data) {
                     if (data.profile_picture) {
-                        $('#profileImage').attr('src', '/static/uploads/' + data.profile_picture);  // Dynamically update the profile picture
+                        $('#profileImage').attr('src', '/static/uploads/' + data.profile_picture);  
                     }
-                    $('#username').text(data.username);  // Dynamically update the username
+                    $('#username').text(data.username);  
                 },
                 error: function(error) {
                     console.error('Error fetching user data:', error);

@@ -13,15 +13,14 @@
         <div class="sidebar">
             <div class="admin-profile">
                 <div class="profile-image">
-                    <!-- Dynamically load profile image -->
                     <img id="profileImage" src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                <h2 id="username">admin 1</h2> <!-- Dynamically load username -->
+                <h2 id="username">admin 1</h2> 
             </div>
             <div class="sidebar-nav">
-                <a class="nav-item" href="/templates/dashboard.html">Dashboard</a>
-                <a class="nav-item active" href="/templates/victim.html">Victim</a>
-                <a class="nav-item" href="/templates/settings.html">Settings</a>
+                <a class="nav-item" href="/dashboard">Dashboard</a>
+                <a class="nav-item active" href="/victim">Victim</a>
+                <a class="nav-item" href="/settings">Settings</a>
                 <div class="logout-section">
                     <a href="/logout" class="logout-btn">
                         <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
@@ -52,7 +51,7 @@
             <td>192.168.1.10</td>
             <td>2024-06-19</td>
             <td>
-                <a href="/templates/device.html">Detail</a>
+                <a href="/device">Detail</a>
             </td>
         </tr>
         <tr>
@@ -61,7 +60,7 @@
             <td>192.168.1.11</td>
             <td>2024-06-18</td>
             <td>
-                <a href="/templates/device.html">Detail</a>
+                <a href="/device">Detail</a>
             </td>
         </tr>
     </tbody>
@@ -74,7 +73,6 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Fetch user details to update profile image and username dynamically
             $.ajax({
                 url: '/get_user',
                 method: 'GET',
@@ -89,7 +87,6 @@
                 }
             });
 
-            // Fetch victim data
             $.ajax({
                 url: '/get_victims', 
                 method: 'GET',
