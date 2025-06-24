@@ -13,7 +13,7 @@
                 <div class="profile-image">
                     <img src="/static/image/admin-profil.jpg" alt="Admin Profile Picture">
                 </div>
-                <h2>User 1</h2>
+                <h2>{{ victim.username }}</h2>
             </div>
             <nav class="sidebar-nav">
                 <a class="nav-item" href="/overview?id={{ victim.id }}">Overview</a>
@@ -24,9 +24,9 @@
                 <a class="nav-item" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
             </nav>
             <div class="logout-section">
-                <a href="/logout" class="logout-btn">
+                <a href="/victim" class="logout-btn">
                     <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
-                    Logout
+                    Back
                 </a>
             </div>
         </aside>

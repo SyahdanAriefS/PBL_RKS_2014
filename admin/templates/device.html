@@ -14,7 +14,7 @@
                     <div class="profile-image">
                         <img src="https://via.placeholder.com/80x80/8B4513/FFFFFF?text=Admin" alt="Admin Profile">
                     </div>
-                    <h2>Admin</h2>
+                    <h2>{{ victim.username }}</h2>
                 </div>
                 
                 <nav class="sidebar-nav">
@@ -25,14 +25,13 @@
                     <a class="nav-item" href="/location?id={{ victim.id }}">Location</a>
                     <a class="nav-item" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
                 </nav>
-                
-                <div class="back-section">
-                    <a href="/victim" class="back-btn">
-                        <i class="fas fa-arrow-left back-icon"></i>
-                        Back
-                    </a>
-                </div>
+            <div class="logout-section">
+                <a href="/victim" class="logout-btn">
+                    <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
+                    Back
+                </a>
             </div>
+        </aside>
 
             <div class="info-grid">
                 <h1 class="title">SpyWare Result</h1>

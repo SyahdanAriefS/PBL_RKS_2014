@@ -8,7 +8,14 @@ body {
     font-family: 'Arial', sans-serif;
     background: #fff;
     min-height: 100vh;
+    overflow-x: hidden;
     display: flex;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
 }
 
 /* Sidebar Styles */
@@ -22,6 +29,7 @@ body {
     position: relative;
     min-height: 100vh;
     box-shadow: 2px 0 10px rgba(0,0,0,0.07);
+    padding-top: 20px;
 }
 
 .admin-profile {
@@ -55,6 +63,7 @@ body {
     flex: 1;
     padding: 0 20px;
     width: 100%;
+    margin-top: 20px;
 }
 
 .nav-item {
@@ -68,7 +77,11 @@ body {
     font-size: 16px;
     text-align: center;
     font-weight: 500;
+    margin-right: 100px;
+    padding-left: 30px;
+    padding-right: 50px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .nav-item:hover {

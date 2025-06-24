@@ -198,21 +198,34 @@ def network():
 
     if not victim:
         conn.close()
+        print("No victim found with id:", victim_id)  # Menampilkan jika tidak ada data
         return "Victim not found", 404
 
     hostname = victim['hostname']
+    print(f"Found victim: {victim}")  # Menampilkan data korban
 
     cursor.execute("""
         SELECT packets_sent, packets_recv, created_at
         FROM system_info
         WHERE hostname = %s
-        ORDER BY created_at
+        ORDER BY created_at LIMIT 1  -- Mengambil hanya 1 data terbaru
     """, (hostname,))
-    network_data = cursor.fetchall()
+    network_data = cursor.fetchone()
+
+    if not network_data:
+        print(f"No network data found for hostname: {hostname}")
+    else:
+        print(f"Network data: {network_data}")
+
+    # Membagi data untuk mengurangi skala (misalnya dibagi dengan 1000)
+    if network_data:
+        network_data['packets_sent'] /= 1000
+        network_data['packets_recv'] /= 1000
 
     conn.close()
 
-    return render_template('network.html', network_data=network_data, victim=victim)
+    return render_template('network.html', network_data=network_data, victim=victim, scale_factor=1000)
+
 
 @app.route('/location')
 def location():
