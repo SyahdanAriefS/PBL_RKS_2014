@@ -13,9 +13,10 @@ body {
 }
 
 .container {
-  display: flex;
-  gap: 20px;
-  width: 100%;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    min-height: 100vh;
 }
 
 /* Sidebar Styles */
@@ -28,7 +29,7 @@ body {
     align-items: center;
     position: relative;
     min-height: 100vh;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.07);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.07);
     padding-top: 20px;
 }
 
@@ -123,42 +124,52 @@ body {
     margin-right: 10px;
     width: 30px;
     height: 30px;
-    vertical-align:middle;
+    vertical-align: middle;
     font-size: 14px;
 }
 
-/* main */
+/* MAIN CONTENT AREA */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin: 25px;
+    background-color: white;
+}
 
-.container {
+.content-header {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.page-title {
     display: flex;
-    gap: 20px; /* gap horizontal antara sidebar dan content */
+    align-items: center;
+    gap: 15px;
+    font-size: 32px;
+    margin: 0;
+    width: 100%;
 }
 
-h1 {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Jarak antara teks dan garis */
+.page-title::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: #333;
 }
 
-h1::after {
-  content: "";
-  flex: 1; /* Garis mengambil sisa ruang */
-  height: 2px;
-  background: #333;
-}
-
+/* Grid Layout */
 .info-grid {
-  display: flex;
-  flex-direction: column; /* Mengubah ke tata letak vertikal */
-  padding: 40px;
-  gap: 30px; /* Jarak antara judul dan grid box */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px 0;
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  align-items: start;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    align-items: start;
 }
 
 .info-box {
@@ -170,7 +181,6 @@ h1::after {
     align-items: flex-start;
     width: 75vh;
     height: 25vh;
-    
 }
 
 .info-box * {
@@ -178,35 +188,32 @@ h1::after {
     background-color: transparent !important;
 }
 
-
 .icon {
     font-size: 32px;
     margin-left: 20px;
 }
 
-
 /* Color Classes */
 .beige {
-  background-color: #d8d0a7;
+    background-color: #d8d0a7;
 }
 
 .green {
-  background-color: #cdd7c7;
+    background-color: #cdd7c7;
 }
 
 .blue {
-  background-color: #b6b4f1;
+    background-color: #b6b4f1;
 }
 
 .dark {
-  background-color: #3f3f3f;
-  color: #fff;
+    background-color: #3f3f3f;
+    color: #fff;
 }
 
 .dark .icon {
-  color: #fff;
+    color: #fff;
 }
-
 
 .logo {
     position: absolute;
@@ -214,11 +221,11 @@ h1::after {
     right: 30px;
 }
 
-  /* Responsive design */
-  @media (min-width: 600px) {
+/* Responsive */
+@media (min-width: 600px) {
     header {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
-  }
+}

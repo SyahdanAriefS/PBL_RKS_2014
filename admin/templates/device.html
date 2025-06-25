@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>BrowserWatch Lab Dashboard</title>
-        <link rel="stylesheet" href="/static/device.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
-    <body>
-        <div class="container">
-            <div class="sidebar">
-                <div class="admin-profile">
-                    <div class="profile-image">
-                        <img src="https://via.placeholder.com/80x80/8B4513/FFFFFF?text=Admin" alt="Admin Profile">
-                    </div>
-                    <h2>{{ victim.username }}</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrowserWatch Lab Dashboard</title>
+    <link rel="stylesheet" href="/static/device.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="admin-profile">
+                <div class="profile-image">
+                    <img src="https://via.placeholder.com/80x80/8B4513/FFFFFF?text=Admin" alt="Admin Profile">
                 </div>
-                
-                <nav class="sidebar-nav">
-                    <a class="nav-item" href="/overview?id={{ victim.id }}">Overview</a>
-                    <a class="nav-item active" href="/device?id={{ victim.id }}">Device Info</a>
-                    <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
-                    <a class="nav-item" href="/network?id={{ victim.id }}">Network</a>
-                    <a class="nav-item" href="/location?id={{ victim.id }}">Location</a>
-                    <a class="nav-item" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
-                </nav>
+                <h2>{{ victim.username }}</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a class="nav-item" href="/overview?id={{ victim.id }}">Overview</a>
+                <a class="nav-item active" href="/device?id={{ victim.id }}">Device Info</a>
+                <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
+                <a class="nav-item" href="/network?id={{ victim.id }}">Network</a>
+                <a class="nav-item" href="/location?id={{ victim.id }}">Location</a>
+                <a class="nav-item" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
+            </nav>
+
             <div class="logout-section">
                 <a href="/victim" class="logout-btn">
                     <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
                     Back
                 </a>
             </div>
-        </aside>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h1 class="page-title">SpyWare Result</h1>
+            </div>
 
             <div class="info-grid">
-                <h1 class="title">SpyWare Result</h1>
-                <div class="grid-container"> 
+                <div class="grid-container">
                     <div class="info-box beige">
                         <div>
                             <p><strong>Username:</strong> {{ victim.username }}</p>
@@ -69,11 +76,11 @@
                     </div>
                 </div>
 
-            <div class="logo">
-                <img src="/admin/static/image/Logo PBL.png" alt="PBL Logo">
+                <div class="logo">
+                    <img src="/admin/static/image/Logo PBL.png" alt="PBL Logo">
+                </div>
             </div>
         </div>
     </div>
-  
 </body>
 </html>
