@@ -201,8 +201,9 @@ main {
 }
 
 .history-links {
-    max-height: 300px;
+    max-height: 400px;  /* Adjusted max-height */
     overflow-y: auto;
+    padding-right: 10px; /* Optional: To avoid text being clipped */
 }
 
 .history-links ul {

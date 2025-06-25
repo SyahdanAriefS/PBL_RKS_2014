@@ -8,12 +8,13 @@
 </head>
 <body>
     <div class="container">
+        <!-- Sidebar -->
         <div class="sidebar">
             <div class="admin-profile">
                 <div class="profile-image">
                     <img id="profileImage" src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                <h2 id="username">admin 1</h2> 
+                <h2 id="username">Admin</h2> 
             </div>
             
             <nav class="sidebar-nav">
@@ -24,17 +25,21 @@
             
             <div class="logout-section">
                 <a href="/logout" class="logout-btn">
-                    <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
+                    <img src="/static/image/12.jpg" alt="Logout Icon" class="logout-icon">
                     Logout
                 </a>
             </div>
         </div>
         
+        <!-- Button untuk toggle sidebar pada layar kecil -->
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+        
+        <!-- Main Content -->
         <div class="main-content">
             <div class="content-wrapper">
                 <section class="introduction">
                     <div class="section-title">
-                        <span>Introduction</span>
+                        <span></span>
                         <div class="line"></div>
                     </div>
                     <div class="intro-content">
@@ -44,7 +49,7 @@
                 </section>
                 
                 <section class="members">
-                    <h1>Members</h1>
+                    <h1>Anggota</h1>
                     <div class="members-image">
                         <img src="/static/image/kelompok.jpeg" alt="Members Group Photo">
                     </div>
@@ -74,6 +79,11 @@
                 }
             });
         });
+
+        // Fungsi untuk toggle sidebar pada layar kecil
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
     </script>
 </body>
 </html>
