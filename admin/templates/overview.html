@@ -115,7 +115,13 @@
   </div>
 
   <script>
-    var networkData = JSON.parse('{{ network_data | tojson | safe }}');
+    const networkData = {{ network_data | default(None) | tojson | safe }};
+    console.log("Network Data:", networkData);
+
+    const labels          = networkData ? [networkData.created_at] : ["Initial"];
+    const packetsSent     = networkData ? [networkData.packets_sent] : [0];
+    const packetsReceived = networkData ? [networkData.packets_recv] : [0];
+    
     console.log("Network Data Received:", networkData);  // Debugging untuk melihat data yang diterima
 
     // Set initial values as 0
