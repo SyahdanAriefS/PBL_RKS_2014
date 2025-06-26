@@ -45,42 +45,43 @@ def login():
 
         conn = get_db_connection()
         with conn.cursor(DictCursor) as cursor:
-            cursor.execute("SELECT id, username, password FROM list_admin WHERE username = %s", (username,))
+            cursor.execute("SELECT username, password FROM list_admin WHERE username = %s", (username,))
             user = cursor.fetchone()
         conn.close()
 
         if user and checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            session['id'] = user['id']
             session['username'] = user['username']
             return redirect(url_for('dashboard'))
+        
         else:
             flash('Username atau Password salah', 'error')
             return render_template('login.html')
+        
     return render_template('login.html')
 
 @app.route('/dashboard')
 def dashboard():
-    user_id = session.get('id')
-    if not user_id:
+    username = session.get('username')
+    if not username:
         return redirect(url_for('login'))
 
     conn = get_db_connection()
     with conn.cursor(DictCursor) as cursor:
-        cursor.execute("SELECT username FROM list_admin WHERE id = %s", (user_id,))
+        cursor.execute("SELECT username FROM list_admin WHERE username = %s", (username,))
         user_data = cursor.fetchone()
     conn.close()
-
+    
     return render_template('dashboard.html', user=user_data)
 
 @app.route('/victim')
 def victim():
-    user_id = session.get('id')
-    if not user_id:
+    username = session.get('username')
+    if not username:
         return redirect(url_for('login'))
 
     conn = get_db_connection()
     with conn.cursor(DictCursor) as cursor:
-        cursor.execute("SELECT username FROM list_admin WHERE id = %s", (user_id,))
+        cursor.execute("SELECT username FROM list_admin WHERE username = %s", (username,))
         user_data = cursor.fetchone()
     conn.close()
 
@@ -88,14 +89,14 @@ def victim():
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
-    user_id = session.get('id')
+    username = session.get('username')
 
-    if not user_id:
+    if not username:
         return redirect(url_for('login'))
 
     conn = get_db_connection()
     with conn.cursor(DictCursor) as cursor:
-        cursor.execute("SELECT username, password FROM list_admin WHERE id = %s", (user_id,))
+        cursor.execute("SELECT username, password FROM list_admin WHERE username = %s", (username,))
         user_data = cursor.fetchone()
 
     if request.method == 'POST':
@@ -108,7 +109,7 @@ def settings():
 
         hashed_password = hashpw(new_password.encode('utf-8'), gensalt())
         with conn.cursor() as cursor:
-            cursor.execute("UPDATE list_admin SET password = %s WHERE id = %s", (hashed_password, user_id))
+            cursor.execute("UPDATE list_admin SET password = %s WHERE username = %s", (hashed_password, username))
         conn.commit()
         flash("Profile updated successfully!", "success")
         return redirect(url_for('settings'))
@@ -157,13 +158,10 @@ def overview():
         network_data = cursor.fetchall()
 
     conn.close()
-
-    # Debugging step: print victim_data and network_data
     print("Victim Data:", victim_data)
     print("Network Data:", network_data)
 
     if victim_data and network_data:
-        # Convert datetime fields to string
         labels = [row['created_at'].strftime('%Y-%m-%d %H:%M:%S') for row in network_data]
         packets_sent = [row['packets_sent'] / 1000 for row in network_data]
         packets_recv = [row['packets_recv'] / 1000 for row in network_data]
@@ -178,7 +176,6 @@ def overview():
         )
     else:
         return "Network data not found", 404
-
 
 @app.route('/history')
 def history():
@@ -220,6 +217,7 @@ def serve_static(filename):
 def logout():
     session.clear()
     return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
