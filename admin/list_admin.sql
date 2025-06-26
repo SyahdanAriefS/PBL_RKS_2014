@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jun 2025 pada 03.39
+-- Waktu pembuatan: 26 Jun 2025 pada 06.27
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -28,8 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `list_admin` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -37,9 +36,8 @@ CREATE TABLE `list_admin` (
 -- Dumping data untuk tabel `list_admin`
 --
 
-INSERT INTO `list_admin` (`id`, `username`, `password`) VALUES
-(1, '2014Kitakita', '$2a$12$o36bSoqUj1tpj21tnLfyZubkcW.J6LBAX4r5Sbgl8zE6gOgpTsa3.'),
-(2, 'ikan', '$2a$12$mAw.tcfnKk0ztp0VnVOSAeNfthx.GjHopeZWnDjh.NzfcZpLezqKW');
+INSERT INTO `list_admin` (`username`, `password`) VALUES
+('2014Kitakita', '$2a$12$xDiY05W..HyYHHR.yx54Luvayty7N56BQDCi5SyMbs7SV5wdGuqnm');
 
 --
 -- Indexes for dumped tables
@@ -49,18 +47,7 @@ INSERT INTO `list_admin` (`id`, `username`, `password`) VALUES
 -- Indeks untuk tabel `list_admin`
 --
 ALTER TABLE `list_admin`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- AUTO_INCREMENT untuk tabel yang dibuang
---
-
---
--- AUTO_INCREMENT untuk tabel `list_admin`
---
-ALTER TABLE `list_admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  ADD PRIMARY KEY (`username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
