@@ -1,42 +1,55 @@
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Pastikan padding dan border dihitung dalam ukuran elemen */
 }
 
 body {
     font-family: 'Arial', sans-serif;
     background: #fff;
-    min-height: 100vh;
-    overflow-x: hidden;
+    min-height: 100vh; /* Mengatur body untuk menyesuaikan dengan tinggi layar */
+    overflow-x: hidden; /* Pastikan tidak ada scroll horizontal */
+    height: 100%; /* Pastikan body memenuhi layar penuh */
 }
 
 .container {
     display: flex;
-    min-height: 100vh;
-    max-width: 1600px;
+    flex-direction: row;
+    height: 100vh; /* Pastikan container memenuhi seluruh layar */
+    max-width: 100%; /* Gunakan 100% lebar agar menyesuaikan dengan layar */
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Pastikan tidak ada scroll horizontal */
+    flex-wrap: wrap; /* Allow content to wrap on small screens */
 }
 
 /* Sidebar Styles */
 .sidebar {
-    width: 250px;
+    width: 250px; /* Lebar sidebar tetap 250px */
     background: #23272e;
-    padding: 0;
+    padding: 30px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    min-height: 100vh;
+    position: fixed; /* Menggunakan position fixed untuk menjaga sidebar tetap di kiri */
+    height: 100%; /* Pastikan sidebar memenuhi seluruh tinggi layar */
     box-shadow: 2px 0 10px rgba(0,0,0,0.07);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    overflow-x: hidden;
+    overflow-y: auto;
+    left: 0; /* Pastikan sidebar ditempatkan di kiri layar */
+    top: 0; /* Pastikan sidebar ditempatkan di atas layar */
+    z-index: 10; /* Pastikan sidebar tampil di atas konten utama */
 }
 
 /* Profil admin */
 .admin-profile {
     text-align: center;
     margin-bottom: 30px;
+    width: 100%; /* Memastikan profil memenuhi lebar sidebar */
 }
 
 .profile-image {
@@ -62,7 +75,7 @@ body {
 }
 
 .sidebar-nav {
-    flex: 1;
+    width: 100%;
     padding: 0 20px;
 }
 
@@ -75,14 +88,9 @@ body {
     border-radius: 20px;
     transition: all 0.3s ease;
     font-size: 16px;
-    text-align: center;
+    text-align: left;
     font-weight: 500;
-    margin-right: 100px;
-    padding-left: 30px;
-    padding-right: 50px;
-    margin-right: 0;
     width: 100%;
-    box-sizing: border-box;
 }
 
 .nav-item:hover {
@@ -99,7 +107,7 @@ body {
 .logout-section {
     width: 100%;
     padding: 0 30px 30px 30px;
-    margin-top: auto;
+    margin-top: auto; /* Membuat tombol logout tetap berada di bawah */
 }
 
 .logout-btn {
@@ -123,7 +131,7 @@ body {
     margin-right: 10px;
     width: 30px;
     height: 30px;
-    vertical-align:middle;
+    vertical-align: middle;
     font-size: 14px;
 }
 
@@ -133,117 +141,91 @@ body {
     position: relative;
     background: rgba(255, 255, 255, 0.98);
     padding: 40px;
+    padding-left: 270px; /* Memberikan ruang agar konten utama tidak tertutup oleh sidebar */
+    overflow-y: auto; /* Pastikan konten bisa di-scroll vertikal */
+    height: 100%; /* Memenuhi tinggi layar */
+    box-sizing: border-box; /* Menambahkan box-sizing agar padding tidak merusak layout */
 }
 
 .content-wrapper {
-    max-width: 800px;
+    max-width: 100%; /* Membuat konten memanfaatkan seluruh lebar */
 }
 
-.introduction {
-    margin-bottom: 50px;
+/* Tabel */
+#victimTable {
+    width: 100%; /* Memastikan tabel memanfaatkan seluruh lebar kontainer */
+    border-collapse: collapse;
 }
 
-.introduction h1 {
-    font-size: 32px;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    border-bottom: 3px solid #3498db;
-    padding-bottom: 10px;
-    display: inline-block;
+#victimTable th, #victimTable td {
+    padding: 12px 15px; /* Menambahkan padding untuk ruang lebih di dalam tabel */
+    text-align: left;
 }
 
-.intro-content h2 {
-    font-size: 28px;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    font-weight: 600;
+#victimTable th {
+    background-color: #3498db;
+    color: white;
 }
 
-.intro-content p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #34495e;
-    text-align: justify;
+#victimTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Memberikan warna latar belakang pada baris genap */
 }
 
-.members {
-    margin-bottom: 30px;
+#victimTable tbody tr:hover {
+    background-color: #e6e6e6; /* Menambahkan efek hover pada baris */
 }
 
-.members h1 {
-    font-size: 32px;
-    color: #2c3e50;
-    margin-bottom: 30px;
-    border-bottom: 3px solid #3498db;
-    padding-bottom: 10px;
-    display: inline-block;
+/* Mengatur lebar kolom tabel */
+#victimTable th:nth-child(1), #victimTable td:nth-child(1) {
+    width: 25%; /* Lebar kolom username */
 }
 
-.members-image {
-    text-align: center;
+#victimTable th:nth-child(2), #victimTable td:nth-child(2) {
+    width: 25%; /* Lebar kolom hostname */
 }
 
-.members-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
+#victimTable th:nth-child(3), #victimTable td:nth-child(3) {
+    width: 20%; /* Lebar kolom IP Address */
 }
 
-.members-image img:hover {
-    transform: scale(1.02);
+#victimTable th:nth-child(4), #victimTable td:nth-child(4) {
+    width: 15%; /* Lebar kolom Start Date */
 }
 
-.logo {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
+#victimTable th:nth-child(5), #victimTable td:nth-child(5) {
+    width: 15%; /* Lebar kolom Action */
 }
-
-.logo img {
-    width: 60px;
-    height: 80px;
-    transition: transform 0.3s ease;
-}
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
     }
-    
+
     .sidebar {
-        width: 100%;
+        width: 100%; /* Sidebar menjadi 100% di layar kecil */
         height: auto;
-        flex-direction: row;
+        flex-direction: column;
         padding: 20px;
     }
-    
-    .admin-profile {
-        flex: 1;
-        margin-bottom: 0;
-        margin-right: 20px;
-    }
-    
-    .sidebar-nav {
-        flex: 2;
-        display: flex;
-        gap: 10px;
-    }
-    
-    .logout-section {
-        margin-top: 0;
-    }
-    
+
     .main-content {
         padding: 20px;
+        padding-left: 0; /* Menghapus padding kiri pada layar kecil */
     }
-    
-    .logo {
-        position: static;
-        text-align: center;
-        margin-top: 30px;
+
+    #victimTable th, #victimTable td {
+        padding: 8px 10px;
+    }
+
+    /* Penyesuaian lebar kolom untuk layar kecil */
+    #victimTable th:nth-child(1), #victimTable td:nth-child(1),
+    #victimTable th:nth-child(2), #victimTable td:nth-child(2) {
+        width: 40%;
+    }
+
+    #victimTable th:nth-child(3), #victimTable td:nth-child(3),
+    #victimTable th:nth-child(4), #victimTable td:nth-child(4) {
+        width: 30%;
     }
 }

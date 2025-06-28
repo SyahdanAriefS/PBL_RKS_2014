@@ -1,287 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Overview</title>
-    <link rel="stylesheet" href="/static/overview.css">
-    <!-- Adding Chart.js library for graphs -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>User Overview</title>
+
+  <!-- Link Font Awesome untuk ikon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Link ke file CSS eksternal -->
+  <link rel="stylesheet" href="/static/overview.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-    <div class="container">
-<<<<<<< HEAD
-        <aside class="sidebar">
-            <div class="admin-profile">
-                <div class="profile-image">
-                    <img src="/static/image/admin-profil.jpg" alt="Admin Profile Picture">
-                </div>
-                <h2>User 1</h2>
-            </div>
-            <nav class="sidebar-nav">
-                <a class="nav-item active" href="/templates/overview.html">Overview</a>
-                <a class="nav-item" href="/templates/device.html">Device Info</a>
-                <a class="nav-item" href="/templates/history.html">History</a>
-                <a class="nav-item" href="/templates/network.html">Network</a>
-                <a class="nav-item" href="/templates/location.html">Location</a>
-                <a class="nav-item" href="/templates/passcookies.html">Pass Cookies</a>
-            </nav>
-            <div class="logout-section">
-                <a href="/logout" class="logout-btn">
-                    <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
-                    Logout
-                </a>
-            </div>
-        </aside>
 
-        <main class="overview">
-            <div class="overview-grid">
-                <section class="device-info">
-                    <h2>Device Info</h2>
-                    <div class="device-info-grid">
-                        <div class="device-info-box">
-                            <p><strong>Username:</strong> User1</p>
-                        </div>
-                        <div class="device-info-box">
-                            <p><strong>Hostname:</strong> Host123</p>
-                        </div>
-                        <div class="device-info-box">
-                            <p><strong>City:</strong> Batam</p>
-                        </div>
-                        <div class="device-info-box">
-                            <p><strong>Region:</strong> Riau</p>
-                        </div>
-                        <div class="device-info-box">
-                            <p><strong>Country:</strong> Indonesia</p>
-                        </div>
-                        <div class="device-info-box">
-                            <p><strong>Operating System:</strong> Windows 10</p>
-                        </div>
-                        <div class="device-info-box">
-                            <p><strong>Local IP:</strong> 192.168.1.1</p>
-                        </div>
-                        <div class="device-info-box">
-                            <p><strong>Public IP:</strong> 123.45.67.89</p>
-=======
-        <div class="sidebar">
-            <div class="victim-profile">
-                <div class="profile-image">
-                    <img src="/static/image/victim-profile.png" alt="victim Profile">
-                    <h3>victim 1</h3>
-                </div>
-                
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="/templates/overview.html" class="nav-link active">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/templates/device.html" class="nav-link">Device Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/templates/history.html" class="nav-link">History</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/templates/network.html" class="nav-link">Network</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="location.html" class="nav-link">Location</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/templates/passcookies.html" class="nav-link">Pass Cookies</a>
-                    </li>
-                </ul>
-
-                
-                <a href="/templates/overview.html" class="back-button">
-                    <span>📄</span>&nbsp;&nbsp;Back
-                </a>
-            </div>
-
-
-    <div class="main-content">
-        <div class="header-note">
-            <strong>nb:</strong> rencana setelah pencet user, jadi yang ditampilkan halaman ini, semacam ringkasannya, untuk detail bisa pencet sidebar, kalo sekiranya tak cukup satu halaman atau terlalu numpuk, buat scroll
-        </div>
+  <!-- Sidebar kiri berisi info user dan navigasi -->
+  <div class="sidebar">
+    <div class="user-pic">
+        <img src="https://via.placeholder.com/80x80/8B4513/FFFFFF?text=Admin" alt="Admin Profile">
+    </div> <!-- Foto profil user -->
+    <h2>User 1</h2> <!-- Nama user -->
     
-    <div class="card-row">
-        <div class="info-cards">
-            <div class="info-card username">
-                <div class="icon">👤</div>
-                <div class="content">
-                    <h3>Username:</h3>
-                    <p>Hostname:</p>
-                </div>
-            </div>
-            <div class="info-card location">
-                <div class="icon">📍</div>
-                <div class="content">
-                    <h3>City:</h3>
-                    <p>Region:</p>
-                    <p>Country:</p>
-                </div>
-            </div>
-            <div class="info-card system">
-                <div class="icon">💻</div>
-                <div class="content">
-                    <h3>Operating System:</h3>
-                </div>
-            </div>
-            <div class="info-card network">
-                <div class="icon">🌐</div>
-                <div class="content">
-                    <h3>Local IP:</h3>
-                    <p>Public IP:</p>
-                </div>
-            </div>
-        </div>
+    <!-- Menu navigasi -->
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="/overview?id={{ victim.id }}">Overview</a>
+      <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
+      <a class="nav-item" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
+    </nav>
 
-        <div class="network-section">
-            <h2>Network</h2>
-            <div class="chart-container">
-                <div class="chart-tooltip">
-                    Item 3<br>
-                    Series 1: 23<br>
-                    Series 2: 15
-                </div>
-                
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <div class="legend-dot sent"></div>
-                        <span>Packet Sent</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot receive"></div>
-                        <span>Packet Receive</span>
-                    </div>
-                </div>
-                
-                <canvas class="chart-canvas" id="networkChart"></canvas>
-            </div>
-        </div>
+    <!-- Tombol kembali -->
+    <div class="back-btn">
+        <a href="/victim" class="back-btn">
+            <i class="fas fa-arrow-left back-icon"></i>Back</a>
+    </div>
+  </div>
 
-        <div class="bottom-grid">
-            <div class="location-section">
-                <h3>Location</h3>
-                <div class="map-placeholder">
-                    🗺️ Interactive Map
-                </div>
-            </div>
+  <!-- Konten utama -->
+  <div class="main-content">
 
-            <div class="history-section">
-                <h3>History Browser</h3>
-                <div class="browser-header">Google Chrome</div>
-                <div class="history-list">
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">https://www.canva.com/design/DAGIR3JuX_x/</div>
-                    <div class="history-item">...</div>
-                </div>
-            </div>
-
-            <div class="cookies-section">
-                <h3>Password Cookies</h3>
-                <div class="cookie-item">
-                    <div class="url">Url :</div>
-                    <div class="cookie-details">
-                        <div class="cookie-avatar"></div>
-                        <div>
-                            <div>Username : xyz_xyzxyZxyZ</div>
-                            <div>Password : 1234567890</div>
->>>>>>> 7442cf870645380f3dcd43ef867356fbe99f7553
-                        </div>
-                    </div>
-                </section>
-
-<<<<<<< HEAD
-                <section class="network">
-                    <h2>Network</h2>
-                    <div class="chart-container">
-                        <!-- The Canvas element where the chart will be drawn -->
-                        <canvas id="networkChart"></canvas>
-                    </div>
-                </section>
-
-                <section class="location">
-                    <h2>Location</h2>
-                    <div class="location-map">
-                        <iframe 
-                            src="https://www.google.com/maps?q=3WXm%2B84G,%20Tj.%20Riau,%20Kec.%20Sekupang,%20Kota%20Batam,%20Kepulauan%20Riau&hl=en&z=12&output=embed" 
-                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </section>
-
-                <section class="password-cookies">
-                    <h2>Password Cookies</h2>
-                    <div class="password-entry">
-                        <p><strong>Url:</strong> xyz.com</p>
-                        <p><strong>Username:</strong> xyz_xyzxyzxyz</p>
-                        <p><strong>Password:</strong> 1234567890</p>
-                    </div>
-                </section>
-
-                <section class="history">
-                    <h2>History Browser</h2>
-                    <div class="history-links">
-                        <p><strong>Google Chrome</strong></p>
-                        <ul>
-                            <li><a href="#">https://www.canvas.com/design/DAGRi3UnX...</a></li>
-                            <li><a href="#">https://www.canvas.com/design/DAGRi3UnX...</a></li>
-                            <!-- More links here -->
-                        </ul>
-                    </div>
-                </section>
-            </div>
-        </main>
-=======
-        <div class="watermark">
-            <img src="/static/image/Logo PBL.png" alt="Logo-PBl">
-        </div>
->>>>>>> 7442cf870645380f3dcd43ef867356fbe99f7553
+    <!-- Kotak data user -->
+    <div class="box beige">
+        <strong>Username:</strong> {{ victim.username }}<br>
+        <strong>Hostname:</strong> {{ victim.hostname }}
     </div>
 
-    <!-- JavaScript for Chart.js -->
-    <script>
-        var ctx = document.getElementById('networkChart').getContext('2d');
-        var networkChart = new Chart(ctx, {
-            type: 'line', // Line chart
-            data: {
-                labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'], // X-axis labels
-                datasets: [{
-                    label: 'Packet Sent',
-                    data: [22, 28, 19, 30, 35], // Data for Packet Sent
-                    borderColor: 'rgba(54, 162, 235, 1)', // Blue color
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    fill: true,
-                },
-                {
-                    label: 'Packet Receive',
-                    data: [20, 23, 22, 25, 30], // Data for Packet Receive
-                    borderColor: 'rgba(153, 102, 255, 1)', // Brown color
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    fill: true,
-                }]
+    <div class="box blue">
+        <strong>City:</strong> {{ victim.city }}<br>
+        <strong>Region:</strong> {{ victim.region }}<br>
+        <strong>Country:</strong> {{ victim.country }}
+    </div>
+
+    <div class="box gray-green">
+        <strong>Operating System:</strong> {{ victim.os }}
+    </div>
+
+    <div class="box gray-dark">
+        <strong>Local IP:</strong> {{ victim.local_ip }}<br>
+        <strong>Public IP:</strong> {{ victim.public_ip or 'N/A' }}
+    </div>
+
+    <!-- Grafik aktivitas jaringan -->
+    <div class="box network-chart">
+      <strong>Network</strong><br><br>
+
+      <!-- Tambahkan elemen <canvas> di sini -->
+      <canvas id="networkChart"></canvas>
+
+      <!-- Bagian baru untuk menampilkan jumlah paket -->
+      <div class="packet-info">
+          <p><strong>Packets Sent:</strong> <span id="packetsSentText">0</span></p>
+          <p><strong>Packets Received:</strong> <span id="packetsReceivedText">0</span></p>
+
+          <!-- Note bahwa data dikalikan dengan faktor 1000 -->
+          <p class="note-info"><strong>Note:</strong> Data ini adalah faktor dari 1000.</p>
+      </div>
+    </div>
+
+    <!-- Peta lokasi user menggunakan Google Maps -->
+    <div class="box location">
+      <strong>Location</strong><br><br>
+      <div class="map-container">
+        <!-- Google Maps Iframe -->
+        <iframe 
+          src="https://www.google.com/maps?q={{ victim.latitude }},{{ victim.longitude }}&hl=en&z=12&output=embed" 
+          width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Informasi cookies -->
+    <div class="box pass-cookies">
+      <strong>Password Cookies</strong><br><br>
+      <div class="url">total data:</div>
+    </div>
+
+    <!-- Riwayat browser -->
+    <div class="box history-box">
+      <strong>History Browser</strong><br><br>
+      <div class="browser">total data:</div>
+    </div>
+
+    <!-- Info tambahan bawah -->
+    <div class="info-tip">
+      <div>To obtain detailed information about Password Cookies and History Browser, select the sidebar now!</div>
+          
+    <div class="logo">
+        <img src="/static/image/Logo PBL.png" alt="PBL Logo">
+    </div>
+    </div>
+
+  </div>
+
+  <script>
+    const networkData = {{ network_data | default(None) | tojson | safe }};
+    console.log("Network Data:", networkData);
+
+    const labels          = networkData ? [networkData.created_at] : ["Initial"];
+    const packetsSent     = networkData ? [networkData.packets_sent] : [0];
+    const packetsReceived = networkData ? [networkData.packets_recv] : [0];
+    
+    console.log("Network Data Received:", networkData);  // Debugging untuk melihat data yang diterima
+
+    // Set initial values as 0
+    var labels = [networkData ? networkData.created_at : "Initial"];  // Ensure there's always a label even if no data is available
+    var packetsSent = [0];  // Initial value set to 0
+    var packetsReceived = [0];  // Initial value set to 0
+
+    // If network data exists, update the values
+    if (networkData) {
+        labels = [networkData.created_at];
+        packetsSent = [networkData.packets_sent];
+        packetsReceived = [networkData.packets_recv];
+    }
+
+    // Debugging data untuk memastikan semuanya sudah sesuai
+    console.log("Labels:", labels);
+    console.log("Packets Sent:", packetsSent);
+    console.log("Packets Received:", packetsReceived);
+
+    // Update the packet info in text form
+    document.getElementById('packetsSentText').textContent = packetsSent[0] + " packets sent";
+    document.getElementById('packetsReceivedText').textContent = packetsReceived[0] + " packets received";
+
+    const ctx = document.getElementById('networkChart').getContext('2d');
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Packet Sent',
+                data: packetsSent,
+                borderColor: '#4A90E2',
+                backgroundColor: '#4A90E2',
+                fill: false,
+                tension: 0.3,
+                pointRadius: 5  // Membuat titik lebih besar agar terlihat
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
+            {
+                label: 'Packet Received',
+                data: packetsReceived,
+                borderColor: '#8B4513',
+                backgroundColor: '#8B4513',
+                fill: false,
+                tension: 0.3,
+                pointRadius: 5  // Membuat titik lebih besar agar terlihat
+            }
+        ]
+    };
+
+    const config = {
+        type: 'line',  // Grafik jenis garis
+        data: data,
+        options: {
+            animation: {
+                duration: 1500,  // Durasi animasi grafik
+            },
+            scales: {
+                y: {
+                    beginAtZero: true  // Memulai sumbu Y dari 0
+                }
+            },
+            elements: {
+                point: {
+                    radius: 5  // Mengatur ukuran titik jika hanya ada satu titik data
                 }
             }
-        });
-    </script>
+        }
+    };
+
+    new Chart(ctx, config);  // Menampilkan grafik
+  </script>
+
 </body>
 </html>

@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: #fff;
+    background: #f5f5f5;
     min-height: 100vh;
     overflow-x: hidden;
     display: flex;
@@ -14,7 +14,7 @@ body {
 
 .container {
     display: flex;
-    gap: 20px; /* gap horizontal antara sidebar dan content */
+    gap: 20px;
     width: 100%;
 }
 
@@ -27,7 +27,8 @@ body {
     align-items: center;
     position: relative;
     min-height: 100vh;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.07);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.07);
+    padding-top: 20px;
 }
 
 .admin-profile {
@@ -93,13 +94,13 @@ body {
     color: white;
 }
 
-.logout-section {
+.back-section {
     width: 100%;
     padding: 0 30px 30px 30px;
     margin-top: auto;
 }
 
-.logout-btn {
+.back-btn {
     display: flex;
     align-items: center;
     color: rgba(255, 255, 255, 0.8);
@@ -109,97 +110,135 @@ body {
     transition: all 0.3s ease;
     font-size: 16px;
     font-weight: 500;
+    margin-top: 20px;
+    width: 100%;
+    justify-content: flex-start;
 }
 
-.logout-btn:hover {
+.back-btn:hover {
     background: rgba(255, 255, 255, 0.1);
     color: white;
 }
 
-.logout-icon {
+.back-icon {
     margin-right: 10px;
-    width: 30px;
-    height: 30px;
-    vertical-align:middle;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
     font-size: 14px;
 }
 
-/* main layout */
+/* Main Layout */
 main {
     flex-grow: 1;
     padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;  /* Align at the top of the page */
 }
 
 h1 {
   display: flex;
   align-items: center;
-  gap: 15px; /* Jarak antara teks dan garis */
+  gap: 15px; /* Space between the text and line */
 }
 
 h1::after {
   content: "";
-  flex: 1; /* Garis mengambil sisa ruang */
+  flex: 1;
   height: 2px;
   background: #333;
 }
 
 .info-grid {
   display: flex;
-  flex-direction: column; /* Mengubah ke tata letak vertikal */
-  gap: 30px; /* Jarak antara judul dan grid box */
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  align-items: start;
+/* Table styling */
+table.dataTable {
+    width: 100% !important;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #fff;  /* White background for table */
+    border-radius: 10px; /* Slightly rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Soft shadow */
 }
 
-.info-box {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    height: 180px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.info-box div {
-    margin-bottom: 10px;
-}
-
-.info-box p {
+/* Header table styling */
+table.dataTable thead th {
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 10px;
     font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 5px;
+    text-align: left;
 }
 
-.info-box p strong {
-    font-weight: 600;
+/* Remove hover effect on header */
+table.dataTable thead th:hover {
+    background-color: #007BFF; /* Keep blue background */
+    color: white;
 }
 
-/* Color Classes */
-.gray {
-  background-color: #eeeeee;
+table.dataTable th, table.dataTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    font-size: 14px;
 }
 
-/* logo section */
-.logo {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
+table.dataTable tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
 }
 
-/* Responsive design */
-@media (min-width: 600px) {
-    header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+table.dataTable a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+table.dataTable a:hover {
+    text-decoration: underline;
+}
+
+/* Table styling for pagination, search, etc. */
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+    width: 250px;
+    margin-left: 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background: #007BFF;
+    color: white;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #0056b3;
+}
+
+/* Responsive design for table */
+@media (max-width: 768px) {
+    table.dataTable th, table.dataTable td {
+        padding: 10px;
+    }
+
+    .back-btn {
+        margin-top: 10px;
     }
 }

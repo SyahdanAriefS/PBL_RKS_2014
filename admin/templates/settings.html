@@ -13,15 +13,15 @@
                 <div class="profile-image">
                     <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                <h2>Admin</h2>
+                <h2>Admin</h2> 
             </div>
             <div class="sidebar-nav">
-                <a class="nav-item" href="/templates/dashboard.html">Dashboard</a>
-                <a class="nav-item" href="/templates/victim.html">Victim</a>
-                <a class="nav-item active" href="/templates/settings.html">Settings</a>
-           <div class="logout-section">
+                <a class="nav-item" href="/dashboard">Dashboard</a>
+                <a class="nav-item" href="/victim">Victim</a>
+                <a class="nav-item active" href="/settings">Settings</a>
+                <div class="logout-section">
                     <a href="/logout" class="logout-btn">
-                        <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
+                        <img src="/static/image/12.jpg" alt="Logout Icon" class="logout-icon">
                         Logout
                     </a>
                 </div>
@@ -33,21 +33,53 @@
                     <h1>User Settings</h1>
                 </div>
                 <div class="user-settings">
-                    <div class="members-image">
-                        <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
-                    </div>
-                    <form>
-                        <label for="username">Name:</label>
-                        <input type="text" id="username" value="Admin" required><br>
+                    <h2>Change Your Password</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        <label for="oldPassword">Old Password:</label>
+                        <input type="password" id="oldPassword" name="oldPassword" required><br>
+
                         <label for="newPassword">New Password:</label>
-                        <input type="password" id="newPassword" required><br>
+                        <input type="password" id="newPassword" name="newPassword" required 
+                               oninput="checkPasswords()"><br>
+
                         <label for="confirmPassword">Confirm Password:</label>
-                        <input type="password" id="confirmPassword" required><br>
-                        <button type="submit" class="logout-btn">Change</button>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required 
+                               oninput="checkPasswords()"><br>
+                        
+                        <span id="match-indicator"></span><br>
+
+                        <button type="submit" class="logout-btn">Change Password</button>
                     </form>
+
+                    <div id="notif-popup" class="notif-popup">
+                        Akun berhasil diubah!
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Script to toggle password visibility
+        function togglePassword(id) {
+            var passwordField = document.getElementById(id);
+            var type = passwordField.type === "password" ? "text" : "password";
+            passwordField.type = type;
+        }
+
+        // Script to check if passwords match
+        function checkPasswords() {
+            var newPassword = document.getElementById("newPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var matchIndicator = document.getElementById("match-indicator");
+            if (newPassword === confirmPassword) {
+                matchIndicator.style.color = "green";
+                matchIndicator.innerText = "Passwords match!";
+            } else {
+                matchIndicator.style.color = "red";
+                matchIndicator.innerText = "Passwords do not match!";
+            }
+        }
+    </script>
 </body>
 </html>

