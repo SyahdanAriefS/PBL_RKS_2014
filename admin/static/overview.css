@@ -29,7 +29,6 @@ body {
     padding-top: 20px;
 }
 
-
 /* Gambar profil user */
 .user-pic {
   width: 80px;
@@ -49,13 +48,13 @@ body {
     margin: 0 auto 15px;
     overflow: hidden;
     border: 3px solid rgba(255, 255, 255, 0.2);
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    object-fit: cover;  /* Ensures the image is properly scaled */
 }
 
+/* Nama user */
 .sidebar h2 {
   margin-bottom: 4vh;
+  color: white; /* Change text color to white */
 }
 
 /* Menu navigasi sidebar */
@@ -72,7 +71,6 @@ body {
   text-decoration: none;
   font-weight: 500;
   display: block;
-
 }
 
 /* Hover dan active link */
@@ -85,7 +83,7 @@ body {
 }
 
 /* Tombol kembali di bawah sidebar */
-.back-btn a{
+.back-btn a {
   margin-bottom: 20px;
   color: white;
   text-decoration: none;
@@ -121,7 +119,6 @@ body {
   min-height: 95px; /* ganti dari height ke min-height */
 }
 
-
 /* Warna latar belakang per kategori */
 .beige {
   background-color: #e3d9bb;
@@ -155,8 +152,6 @@ body {
   height: 150px;
 }
 
-
-/* Riwayat browser */
 /* Riwayat browser */
 .history-box {           /* sudah ada dan benar */
   grid-column: 2;
@@ -195,8 +190,6 @@ body {
   object-fit: cover;
 }
 
-
-
 .map-info {
     color: #333;
     font-size: 12px;
@@ -211,7 +204,6 @@ body {
     height: 60%;
 }
 
-
 /* Cookies */
 .pass-cookies {
   grid-column: 1;
@@ -223,8 +215,6 @@ body {
 .pass-cookies .url {
   margin-bottom: 10px;
 }
-
-
 
 /* Info teks dan logo bawah */
 .info-tip {
