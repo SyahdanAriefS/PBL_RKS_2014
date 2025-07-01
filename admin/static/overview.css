@@ -14,9 +14,6 @@ body {
 
 
 
-<<<<<<< HEAD
-
-=======
 /* Gambar profil user */
 .user-pic img {
   width: 80px;
@@ -71,7 +68,6 @@ body {
   font-size: 15px;
   font-weight: 500;
 }
->>>>>>> 2179414ec44a0df20ef15006c90f6c066852c01a
 
 
 /* =========================== */
@@ -209,9 +205,13 @@ body {
 .logo {
     grid-column: 4;
     grid-row: 3;
-    bottom: 30px;
-    right: 30px;
-    margin-bottom: 200px;
-    margin-top: 350px;
+    position: fixed;
+    bottom: -3px;
+    right: 9px;
+    margin: 0;
+    width: 60px;
+    z-index: 1000;
+    mix-blend-mode: multiply;
+    
     mix-blend-mode: multiply; /* Opsional: untuk menghilangkan sisa background */
 }
