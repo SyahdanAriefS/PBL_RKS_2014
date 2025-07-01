@@ -6,94 +6,15 @@
 
 /* Body utama */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   height: 100vh;
   background-color: #f4f4f4;
 }
 
-/* =================== */
-/* ===== SIDEBAR ===== */
-/* =================== */
 
-.sidebar {
-   width: 250px;
-    background: #23272e;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    min-height: 100vh;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.07);
-    padding-top: 20px;
-}
 
-/* Gambar profil user */
-.user-pic {
-  width: 80px;
-  height: 80px;
-  background-color: #c4c4c4;
-  border-radius: 50%;
-  margin-bottom: 5vh;
-  text-align: center;
-  margin-top: 20px;
-  padding: 0 20px;
-}
 
-.user-pic img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin: 0 auto 15px;
-    overflow: hidden;
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    object-fit: cover;  /* Ensures the image is properly scaled */
-}
-
-/* Nama user */
-.sidebar h2 {
-  margin-bottom: 4vh;
-  color: white; /* Change text color to white */
-}
-
-/* Menu navigasi sidebar */
-.sidebar nav {
-  display: flex;
-  padding-top: 20px;
-  flex-direction: column;
-  width: 70%;
-}
-
-.sidebar nav a {
-  padding: 15px 20px;
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  display: block;
-}
-
-/* Hover dan active link */
-.sidebar nav a.active,
-.sidebar nav a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  transform: translateX(5px);
-  border-radius: 20px;
-}
-
-/* Tombol kembali di bawah sidebar */
-.back-btn a {
-  margin-bottom: 20px;
-  color: white;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  padding: 30px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-}
 
 
 /* =========================== */
@@ -233,5 +154,7 @@ body {
     grid-row: 3;
     bottom: 30px;
     right: 30px;
+    margin-bottom: 200px;
+    margin-top: 350px;
     mix-blend-mode: multiply; /* Opsional: untuk menghilangkan sisa background */
 }

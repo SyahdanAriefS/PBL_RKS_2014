@@ -3,32 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/history.css">
     <link rel="stylesheet" href="/static/passcookies.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
     <title>Password Cookies - User Settings</title>
 </head>
 <body>
     <div class="container">
-        <div class="sidebar">
-            <div class="admin-profile">
-                <div class="profile-image">
-                    <img src="/static/image/admin-profil.jpg" alt="Admin Profile Picture">
-                </div>
-                <h2>{{ victim.username }}</h2>
-            </div>
-            <div class="sidebar-nav">
-                <a class="nav-item" href="/overview?id={{ victim.id }}">Overview</a>
-                <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
-                <a class="nav-item active" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
-            </div>
-            <div class="back-section">
-                <a href="/victim" class="back-btn">
-                    <img src="/static/image/logout-icon.png" alt="Back Icon" class="back-icon">
-                    Back
-                </a>
-            </div>
-        </div>
-        
+        {% include '_sidebar.html' %}
+
         <main>
             <h1>Password Cookies</h1>
             <div class="info-grid">

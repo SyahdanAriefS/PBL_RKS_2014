@@ -1,0 +1,24 @@
+<aside class="sidebar">
+    <div class="admin-profile">
+        <div class="profile-image">
+            <img src="/static/image/admin-profil.jpg" alt="Admin Profile Picture">
+        </div>
+        <h2>{{ victim.username }}</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a class="nav-item {% if request.path.startswith('/overview') %}active{% endif %}"
+           href="/overview?id={{ victim.id }}">Overview</a>
+        <a class="nav-item {% if request.path.startswith('/history') %}active{% endif %}"
+           href="/history?id={{ victim.id }}">History</a>
+        <a class="nav-item {% if request.path.startswith('/passcookies') %}active{% endif %}"
+           href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
+    </nav>
+
+    <div class="logout-section">
+        <a href="/victim" class="logout-btn">
+            <img src="/static/image/logout-icon.png" alt="Logout Icon" class="logout-icon">
+            Back
+        </a>
+    </div>
+</aside>
