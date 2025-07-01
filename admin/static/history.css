@@ -232,6 +232,17 @@ main {
     text-decoration: underline;
 }
 
+.logo {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.logo img {
+    width: 60px;
+    height: 80px;
+    transition: transform 0.3s ease;
+}
 /* Responsive design */
 @media (min-width: 600px) {
     .history-grid {

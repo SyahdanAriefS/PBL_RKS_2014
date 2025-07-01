@@ -147,18 +147,20 @@ body {
     box-sizing: border-box; /* Menambahkan box-sizing agar padding tidak merusak layout */
 }
 
+/* Content Wrapper */
 .content-wrapper {
     max-width: 100%; /* Membuat konten memanfaatkan seluruh lebar */
 }
 
 /* Tabel */
 #victimTable {
-    width: 100%; /* Memastikan tabel memanfaatkan seluruh lebar kontainer */
+    width: 95%; /* Mengurangi lebar tabel agar lebih kecil dan tidak terlalu memanjang */
     border-collapse: collapse;
+    margin-left: 20px; /* Memberikan sedikit jarak dari kiri */
 }
 
 #victimTable th, #victimTable td {
-    padding: 12px 15px; /* Menambahkan padding untuk ruang lebih di dalam tabel */
+    padding: 8px 10px; /* Menambahkan padding untuk ruang lebih di dalam tabel */
     text-align: left;
 }
 
@@ -177,23 +179,70 @@ body {
 
 /* Mengatur lebar kolom tabel */
 #victimTable th:nth-child(1), #victimTable td:nth-child(1) {
-    width: 25%; /* Lebar kolom username */
+    width: 20%; /* Lebar kolom username */
 }
 
 #victimTable th:nth-child(2), #victimTable td:nth-child(2) {
-    width: 25%; /* Lebar kolom hostname */
+    width: 20%; /* Lebar kolom hostname */
 }
 
 #victimTable th:nth-child(3), #victimTable td:nth-child(3) {
-    width: 20%; /* Lebar kolom IP Address */
+    width: 15%; /* Lebar kolom Local IP */
 }
 
 #victimTable th:nth-child(4), #victimTable td:nth-child(4) {
-    width: 15%; /* Lebar kolom Start Date */
+    width: 15%; /* Lebar kolom Public IP */
 }
 
 #victimTable th:nth-child(5), #victimTable td:nth-child(5) {
+    width: 25%; /* Lebar kolom Start Date untuk memperpanjang */
+}
+
+#victimTable th:nth-child(6), #victimTable td:nth-child(6) {
     width: 15%; /* Lebar kolom Action */
+}
+
+/* Action Button Styles */
+#victimTable .btn {
+    font-size: 12px; /* Make the font smaller */
+    padding: 4px 10px; /* Reduce padding further for smaller buttons */
+    border-radius: 5px; /* Rounded corners for the buttons */
+    text-align: auto;
+    display: inline-block; /* Ensures buttons are in a single line */
+    transition: all 0.3s ease;
+    margin: 0 10px; /* Adds space between buttons */
+    margin-top: 5px;
+}
+
+/* Optional: If you want to reduce the size on hover */
+#victimTable .btn:hover {
+    transform: scale(0.95); /* Slightly reduce the size on hover */
+}
+
+/* Action Column Adjustments */
+#victimTable td:nth-child(6) {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    align-items: center; /* Center the buttons vertically within the cell */
+    padding: 0; /* Remove extra padding */
+}
+
+#victimTable th:nth-child(6) {
+    text-align: center;
+}
+
+
+/* Logo */
+.logo {
+    position: absolute;
+    bottom: 30px;
+    right: 30px; /* Position the logo on the bottom right */
+}
+
+.logo img {
+    width: 60px;
+    height: 80px;
+    transition: transform 0.3s ease;
 }
 
 /* Responsive Design */
@@ -203,7 +252,7 @@ body {
     }
 
     .sidebar {
-        width: 100%; /* Sidebar menjadi 100% di layar kecil */
+        width: 100%; /* Sidebar becomes 100% width on small screens */
         height: auto;
         flex-direction: column;
         padding: 20px;
@@ -211,14 +260,14 @@ body {
 
     .main-content {
         padding: 20px;
-        padding-left: 0; /* Menghapus padding kiri pada layar kecil */
+        padding-left: 0; /* Remove left padding on small screens */
     }
 
     #victimTable th, #victimTable td {
         padding: 8px 10px;
     }
 
-    /* Penyesuaian lebar kolom untuk layar kecil */
+    /* Adjust column widths for small screens */
     #victimTable th:nth-child(1), #victimTable td:nth-child(1),
     #victimTable th:nth-child(2), #victimTable td:nth-child(2) {
         width: 40%;

