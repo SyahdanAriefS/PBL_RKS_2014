@@ -14,7 +14,64 @@ body {
 
 
 
+<<<<<<< HEAD
 
+=======
+/* Gambar profil user */
+.user-pic img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-bottom: 15px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+/* Nama user */
+.sidebar h2 {
+  margin-bottom: 4vh;
+  color: white; /* Change text color to white */
+}
+
+/* Menu navigasi sidebar */
+.sidebar nav {
+  display: flex;
+  padding-top: 20px;
+  flex-direction: column;
+  width: 70%;
+}
+
+.sidebar nav a {
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+}
+
+/* Hover dan active link */
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateX(5px);
+  border-radius: 20px;
+}
+
+/* Tombol kembali di bawah sidebar */
+.back-btn a {
+  margin-bottom: 20px;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+>>>>>>> 2179414ec44a0df20ef15006c90f6c066852c01a
 
 
 /* =========================== */
