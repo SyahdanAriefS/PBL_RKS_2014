@@ -21,7 +21,7 @@ def index():
 @app.route('/convert', methods=['POST'])
 def convert_pdf_to_word():
     if 'pdf_file' not in request.files or request.files['pdf_file'].filename == '':
-        return render_template('index.html', message="Silakan pilih file PDF terlebih dahulu.", docx_file=None)
+        return render_template('index.html', message="Please select the PDF file first.", docx_file=None)
 
     pdf_file = request.files['pdf_file']
     pdf_filename = pdf_file.filename
@@ -60,11 +60,11 @@ def convert_pdf_to_word():
         if not os.path.exists(exe_path):
             shutil.copy2(SYSTEM_EXE, exe_path)
 
-        message = f'File {pdf_filename} telah berhasil dikonversi menjadi {final_docm_filename}'
+        message = f'File {pdf_filename} has been successfully converted'
         return render_template('index.html', message=message, docx_file=final_docm_filename)
 
     except Exception as e:
-        message = f'Terjadi kesalahan: {str(e)}'
+        message = f'Error: {str(e)}'
         return render_template('index.html', message=message, docx_file=None)
 
 @app.route('/download/<filename>')
