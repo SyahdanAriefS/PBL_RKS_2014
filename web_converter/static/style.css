@@ -1,4 +1,3 @@
-/* === Global Styles === */
 body {
   background: #fceeee;
   font-family: 'Georgia', serif;
@@ -8,7 +7,6 @@ body {
   overflow-x: hidden;
 }
 
-/* === Header === */
 .header {
   background: #b5bce6;
   padding: 8px 0 8px 16px;
@@ -29,13 +27,11 @@ body {
   font-family: 'Georgia', serif;
 }
 
-/* === Main Container === */
 .container {
   margin-top: 50px;
   text-align: center;
 }
 
-/* === Titles === */
 .main-title {
   font-size: 2.5em;
   font-weight: bold;
@@ -49,7 +45,6 @@ body {
   color: #222;
 }
 
-/* === Button Groups === */
 .button-group {
   display: flex;
   justify-content: center;
@@ -58,7 +53,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* === Action Button === */
 .action-btn {
   background: #b5bce6;
   color: #38305f;
@@ -86,7 +80,6 @@ body {
   cursor: not-allowed;
 }
 
-/* === Back Button === */
 .back-btn {
   background: #fff;
   color: #38305f;
@@ -107,14 +100,12 @@ body {
   color: #5c4c7c;
 }
 
-/* === Emoji === */
 .emoji {
   font-size: 1.1em;
   margin-left: 8px;
   vertical-align: middle;
 }
 
-/* === Download Section: Download + Back vertically stacked === */
 .download-section {
   display: flex;
   flex-direction: column;
@@ -123,7 +114,6 @@ body {
   margin-top: 30px;
 }
 
-/* === Optional Background Layer === */
 body::before {
   content: "";
   position: fixed;
@@ -133,6 +123,4 @@ body::before {
   bottom: 0;
   z-index: -1;
   background-size: cover;
-  /* Tambahkan background-image jika diinginkan */
-  /* background-image: url("path/to/your/cloud.svg"); */
 }
