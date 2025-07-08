@@ -1,117 +1,126 @@
 body {
-    background: #fceeee;
-    font-family: 'Georgia', serif;
-    margin: 0;
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-  }
-  
-  .header {
-    background: #b5bce6;
-    padding: 8px 0 8px 16px;
-    font-size: 2em;
-    color: #5c4c7c;
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    height: 38px;
-    margin-right: 10px;
-  }
-  
-  .brand {
-    font-weight: 600;
-    letter-spacing: 1px;
-    font-family: 'Georgia', serif;
-  }
-  
-  .container {
-    margin-top: 50px;
-    text-align: center;
-  }
-  
-  .main-title {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #38305f;
-    margin-bottom: 10px;
-    font-family: 'Georgia', serif;
-  }
-  
-  .subtitle {
-    font-size: 1.3em;
-    margin-bottom: 32px;
-    color: #222;
-    font-family: 'Georgia', serif;
-  }
-  
-  .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 10px;
-  }
-  
-  .action-btn {
-    background: #b5bce6;
-    color: #38305f;
-    border: none;
-    border-radius: 16px;
-    padding: 18px 48px;
-    font-size: 2em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(60, 40, 80, 0.04);
-    font-family: 'Georgia', serif;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .action-btn:hover:enabled {
-    background: #969fd1;
-    box-shadow: 0 4px 16px rgba(60, 40, 80, 0.10);
-  }
-  
-  .action-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-  
-  .back-btn {
-    background: #fff;
-    color: #38305f;
-    border: 2px solid #b5bce6;
-    border-radius: 12px;
-    padding: 18px 32px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-    font-family: 'Georgia', serif;
-    display: flex;
-    align-items: center;
-  }
-  
-  .back-btn:hover {
-    background: #e2e6f3;
-    color: #5c4c7c;
-  }
-  
-  .emoji {
-    font-size: 1.1em;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-  
-  /* Cloud background menggunakan SVG sebagai background-image */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 60px; left: 0; right: 0; bottom: 0;
-    z-index: -1;
-    background-size: cover;
+  background: #fceeee;
+  font-family: 'Georgia', serif;
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.header {
+  background: #b5bce6;
+  padding: 8px 0 8px 16px;
+  font-size: 2em;
+  color: #5c4c7c;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 38px;
+  margin-right: 10px;
+}
+
+.brand {
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: 'Georgia', serif;
+}
+
+.container {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #38305f;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.3em;
+  margin-bottom: 32px;
+  color: #222;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background: #b5bce6;
+  color: #38305f;
+  border: none;
+  border-radius: 16px;
+  padding: 18px 48px;
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(60, 40, 80, 0.04);
+  font-family: 'Georgia', serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn:hover:enabled {
+  background: #969fd1;
+  box-shadow: 0 4px 16px rgba(60, 40, 80, 0.10);
+}
+
+.action-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.back-btn {
+  background: #fff;
+  color: #38305f;
+  border: 2px solid #b5bce6;
+  border-radius: 12px;
+  padding: 18px 32px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: 'Georgia', serif;
+  display: flex;
+  align-items: center;
+}
+
+.back-btn:hover {
+  background: #e2e6f3;
+  color: #5c4c7c;
+}
+
+.emoji {
+  font-size: 1.1em;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.download-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-size: cover;
 }

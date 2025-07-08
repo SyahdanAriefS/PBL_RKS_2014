@@ -13,7 +13,7 @@
   </div>
 
   <div class="container">
-    <h1 class="main-title">Konversi PDF ke Word</h1>
+    <h1 class="main-title">PDF to Word conversion</h1>
     <p class="subtitle">Smooth conversions, stunning results. Just upload and relax :D</p>
 
     {% if message %}
@@ -33,17 +33,19 @@
             Start Converting Now <span class="emoji">🚀</span>
           </button>
         {% endif %}
+      </div>
+    </form>
 
-        <button id="backButton" class="back-btn" style="{% if not docx_file %} display: none; {% endif %}">
+    {% if docx_file %}
+      <div class="download-section">
+        <a href="{{ url_for('download_file', filename=docx_file) }}" class="action-btn">
+          Download Conversion Results <span class="emoji">⬇️</span>
+        </a>
+        <button id="backButton" class="back-btn">
           &#8592; Back
         </button>
       </div>
-    </form>
-        {% if docx_file %}
-          <a href="{{ url_for('download_file', filename=docx_file) }}" class="action-btn" style="margin-top: 20px; display: inline-block;">
-          Download Hasil Konversi <span class="emoji">⬇️</span>
-          </a>
-        {% endif %}
+    {% endif %}
   </div>
 
   <script>
@@ -62,15 +64,16 @@
       fileInput.addEventListener('change', () => {
         if (fileInput.files.length > 0) {
           submitButton.style.display = 'inline-block';
-          backButton.style.display = 'inline-block';
           chooseFileButton.style.display = 'none';
         }
       });
     }
 
-    backButton.addEventListener('click', () => {
-      window.location.href = '{{ url_for("index") }}';
-    });
+    if (backButton) {
+      backButton.addEventListener('click', () => {
+        window.location.href = '{{ url_for("index") }}';
+      });
+    }
   </script>
 </body>
 </html>
