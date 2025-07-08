@@ -68,11 +68,13 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none; 
 }
 
-.action-btn:hover:enabled {
+.action-btn:hover {
   background: #969fd1;
   box-shadow: 0 4px 16px rgba(60, 40, 80, 0.10);
+  text-decoration: none; 
 }
 
 .action-btn:disabled {
@@ -93,11 +95,6 @@ body {
   font-family: 'Georgia', serif;
   display: flex;
   align-items: center;
-}
-
-.back-btn:hover {
-  background: #e2e6f3;
-  color: #5c4c7c;
 }
 
 .emoji {
