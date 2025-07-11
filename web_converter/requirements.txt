@@ -1,0 +1,7 @@
+Flask
+pymysql
+bcrypt
+psutil
+pycryptodome
+requests
+pywin32
